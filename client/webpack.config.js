@@ -45,37 +45,28 @@ module.exports = {
         loader: "file-loader",
       },
       {
-        test: /\.module\.s(a|c)ss$/,
+        test: /\.pcss$/,
         use: [
           isDevelopment ? "style-loader" : MiniCssExtractPlugin.loader,
           {
             loader: "css-loader",
-            options: {
-              modules: true,
-              sourceMap: isDevelopment,
-              esModule: true,
-              hmr: isDevelopment,
-            },
           },
           {
-            loader: "sass-loader",
+            loader: "postcss-loader",
             options: {
-              sourceMap: isDevelopment,
+              postcssOptions: {
+                config: path.resolve(__dirname, "postcss.config.js"),
+              },
             },
           },
         ],
       },
       {
-        test: /\.s(a|c)ss$/,
-        exclude: /\.module.(s(a|c)ss)$/,
+        test: /\.css$/,
         use: [
           isDevelopment ? "style-loader" : MiniCssExtractPlugin.loader,
-          "css-loader",
           {
-            loader: "sass-loader",
-            options: {
-              sourceMap: isDevelopment,
-            },
+            loader: "css-loader",
           },
         ],
       },

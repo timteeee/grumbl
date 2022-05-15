@@ -10,6 +10,7 @@
     "build:client": "yarn workspace grumbl-client build",
     "dev": "yarn workspace grumbl-server dev",
     "dev:debug": "yarn workspace grumbl-server dev:debug",
+    "tailwind": "yarn workspace grumbl-client tailwind",
     "heroku-postbuild": "yarn workspace grumbl-client build",
     "start": "yarn workspace grumbl-server start",
     "dev:cypress": "yarn workspace grumbl-server dev:e2e",
