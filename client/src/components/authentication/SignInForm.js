@@ -66,20 +66,26 @@ const SignInForm = () => {
   }
 
   return (
-    <div className="grid-container" onSubmit={onSubmit}>
-      <h1>Sign In</h1>
+    <div className="flex flex-col items-center" onSubmit={onSubmit}>
+      <h1 className="text-4xl my-2">Sign In</h1>
       <form>
-        <div>
-          <label>
+        <div className="flex flex-col">
+          <label className="flex flex-col">
             Email
-            <input type="text" name="email" value={userPayload.email} onChange={onInputChange} />
+            <input 
+              className="border rounded-lg border-gray-200"
+              type="text" 
+              name="email" 
+              value={userPayload.email} 
+              onChange={onInputChange} />
             <FormError error={errors.email} />
           </label>
         </div>
         <div>
-          <label>
+          <label className="flex flex-col">
             Password
             <input
+              className="border rounded-lg border-gray-200"
               type="password"
               name="password"
               value={userPayload.password}
@@ -89,7 +95,12 @@ const SignInForm = () => {
           </label>
         </div>
         <div>
-          <input type="submit" className="button" value="Sign In" />
+          <input 
+            className="mt-1 py-1 px-4 rounded-lg text-white bg-black" 
+            type="submit" 
+            value="Sign In" 
+            role="button"
+          />
         </div>
       </form>
     </div>
