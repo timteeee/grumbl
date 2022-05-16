@@ -3,37 +3,35 @@ import { Link } from "react-router-dom";
 import SignOutButton from "../authentication/SignOutButton";
 
 const TopBar = ({ user }) => {
-  const unauthenticatedListItems = [
+  const unauthenticatedButtons = [
     <li key="sign-in">
       <Link to="/user-sessions/new">Sign In</Link>
     </li>,
     <li key="sign-up">
-      <Link to="/users/new" className="button">
+      <Link to="/users/new" className="">
         Sign Up
       </Link>
     </li>,
   ];
 
-  const authenticatedListItems = [
+  const authenticatedButtons = [
     <li key="sign-out">
       <SignOutButton />
     </li>,
   ];
 
   return (
-    <div className="top-bar">
-      <div className="top-bar-left">
-        <ul className="menu">
-          <li className="menu-text">App</li>
+    <nav className="relative  mx-auto p-5 shadow-xl">
+      <div className=" flex items-center justify-between ">
+        <div className="text-2xl ">Grumbl</div>
+        <ul className="hidden md:flex justify-end space-x-8 w-1/2 ">
           <li>
             <Link to="/">Home</Link>
           </li>
+          {user ? authenticatedButtons : unauthenticatedButtons}
         </ul>
       </div>
-      <div className="top-bar-right">
-        <ul className="menu">{user ? authenticatedListItems : unauthenticatedListItems}</ul>
-      </div>
-    </div>
+    </nav>
   );
 };
 
