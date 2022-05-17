@@ -16,7 +16,7 @@ const RegistrationForm = () => {
   const validateInput = (payload) => {
     setErrors({});
     const { email, password, passwordConfirmation } = payload;
-    const emailRegexp = config.validation.email.regexp;
+    const emailRegexp = config.validation.email.regexp.emailRegex;
     let newErrors = {};
     if (!email.match(emailRegexp)) {
       newErrors = {
@@ -86,20 +86,26 @@ const RegistrationForm = () => {
   }
 
   return (
-    <div className="grid-container">
-      <h1>Register</h1>
+    <div className="flex flex-col items-center">
+      <h1 className="text-4xl my-2">Register</h1>
       <form onSubmit={onSubmit}>
-        <div>
-          <label>
+        <div className="flex flex-col">
+          <label className="flex flex-col">
             Email
-            <input type="text" name="email" value={userPayload.email} onChange={onInputChange} />
+            <input 
+              className="border rounded-lg border-gray-200" 
+              type="text" 
+              name="email" 
+              value={userPayload.email} 
+              onChange={onInputChange} />
             <FormError error={errors.email} />
           </label>
         </div>
         <div>
-          <label>
+          <label className="flex flex-col">
             Password
             <input
+              className="border rounded-lg border-gray-200"
               type="password"
               name="password"
               value={userPayload.password}
@@ -109,9 +115,10 @@ const RegistrationForm = () => {
           </label>
         </div>
         <div>
-          <label>
+          <label className="flex flex-col">
             Password Confirmation
             <input
+              className="border rounded-lg border-gray-200"
               type="password"
               name="passwordConfirmation"
               value={userPayload.passwordConfirmation}
@@ -121,7 +128,11 @@ const RegistrationForm = () => {
           </label>
         </div>
         <div>
-          <input type="submit" className="button" value="Register" />
+          <input 
+            className="mt-1 py-1 px-4 rounded-lg text-white bg-black" 
+            type="submit" 
+            value="Register" 
+            role="button" />
         </div>
       </form>
     </div>

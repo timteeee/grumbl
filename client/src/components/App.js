@@ -4,6 +4,8 @@ import { hot } from "react-hot-loader/root";
 
 import getCurrentUser from "../services/getCurrentUser";
 import "../assets/style/main.pcss";
+import AuthenticatedRoute from "./authentication/AuthenticatedRoute"
+import RoomShowPage from "./pages/RoomShowPage"
 import RegistrationForm from "./registration/RegistrationForm";
 import SignInForm from "./authentication/SignInForm";
 import TopBar from "./layout/TopBar";
@@ -30,6 +32,11 @@ const App = (props) => {
         <Route exact path="/">
           <h2 className="text-4xl">Hello from react</h2>
         </Route>
+        <AuthenticatedRoute 
+          exact path="/room" 
+          component={RoomShowPage} 
+          user={currentUser}
+        />
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/user-sessions/new" component={SignInForm} />
       </Switch>
