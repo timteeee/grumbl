@@ -1,14 +1,20 @@
 import React, { useState } from "react"
 import Message from "./Message"
 
-const ChatWindow = ({ user, messages, sendMessage }) => {
+const ChatWindow = ({ user, roomId, messages, sendMessage }) => {
   const [newMessage, setNewMessage] = useState({
     text: "",
-    userId: user.id
+    user: {
+      id: user.id,
+      email: user.email
+    },
+    room: roomId
   })
 
   const messagesList = messages.map((message, index) => {
-    message.belongsToCurrentUser = message.userId === user.id ? true : false
+    if (message.user) {
+      message.belongsToCurrentUser = message.user.id === user.id ? true : false
+    }
 
     return (
       <Message key={index} message={message}/>

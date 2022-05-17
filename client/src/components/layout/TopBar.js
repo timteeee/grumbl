@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import SignOutButton from "../authentication/SignOutButton";
-import NewRoomButton from "../navigation/NewRoomButton";
 
 const TopBar = ({ user }) => {
   const unauthenticatedButtons = [
@@ -16,9 +15,6 @@ const TopBar = ({ user }) => {
   ];
 
   const authenticatedButtons = [
-    <li key="new-room">
-      <NewRoomButton />
-    </li>,
     <li key="sign-out">
       <SignOutButton />
     </li>

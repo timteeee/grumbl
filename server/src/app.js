@@ -29,25 +29,20 @@ app.use(rootRouter);
 
 const server = createServer(app)
 const io = new Server(server)
-// const io = new Server(server, {
-//   cors: {
-//     origin: "http://localhost:3000"
-    // origin: `http://${configuration.web.host}:${configuration.web.port}`
-//   }
-// })
 
 server.listen(configuration.web.port, configuration.web.host, () => {
   console.log(`Server is listening on port ${configuration.web.port}`)
 })
 
 io.on("connection", (socket) => {
+  socket.on("join-room", (roomData) => {
+    socket.join(roomData)
+    socket.emit("joined", roomData)
+  })
+
   socket.on("send-message", (message) => {
-    socket.broadcast.emit("receive-message", message)
+    socket.broadcast.to(message.room).emit("receive-message", message)
   })
 })
-
-// app.listen(configuration.web.port, configuration.web.host, () => {
-//   console.log("Server is listening...");
-// });
 
 export default app;
