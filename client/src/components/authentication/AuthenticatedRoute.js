@@ -2,13 +2,15 @@ import React from "react";
 import { Redirect, Route } from "react-router";
 
 const AuthenticationCheck = ({ component: Component, user, ...rest }) => {
+  // debugger
+  const { url, params } = rest.computedMatch
   if (user === undefined) {
     return <div>Loading...</div>
   }
   if (user !== null) {
-    return <Component user={user} params={rest.computedMatch.params} />;
+    return <Component user={user} params={params} url={url} />;
   }
-  return <Redirect to="/user-sessions/new" />;
+  return <Redirect to={{ pathname: "/user-sessions/new", state: { url, params } }} />;
 };
 
 const AuthenticatedRoute = ({ component, user, ...rest }) => {

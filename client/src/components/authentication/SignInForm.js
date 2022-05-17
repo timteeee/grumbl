@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import config from "../../config";
 import FormError from "../layout/FormError";
 
-const SignInForm = () => {
+const SignInForm = (props) => {
+  const { state } = props.location
   const [userPayload, setUserPayload] = useState({ email: "", password: "" });
   const [shouldRedirect, setShouldRedirect] = useState(false);
   const [errors, setErrors] = useState({});
@@ -60,9 +61,12 @@ const SignInForm = () => {
       [event.currentTarget.name]: event.currentTarget.value,
     });
   };
-
   if (shouldRedirect) {
-    location.href = "/";
+    if (state.params.roomId) {
+      location.href = state.url
+    } else {
+      location.href = "/";
+    }
   }
 
   return (

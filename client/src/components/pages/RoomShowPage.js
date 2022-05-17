@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react"
 import { io } from "socket.io-client"
 import ChatWindow from "../chat/ChatWindow"
 
-const RoomShowPage = ({ user, params }) => {
+const RoomShowPage = ({ user, params, url }) => {
   const [socket] = useState(io("http://localhost:3000"))
   const [messages, setMessages] = useState([
     {
-      text: `Invite others to this room by sending them this link:\nlocalhost:3000/rooms/${params.roomId}`,
+      text: `Invite others to this room by sending them this link:\nlocalhost:3000/${url}`,
       user: null,
       room: params.roomId
     }
@@ -42,3 +42,5 @@ const RoomShowPage = ({ user, params }) => {
 }
 
 export default RoomShowPage
+
+// localhost:3000/rooms/9b58eea1-97c1-438f-9cda-0cefe980485f
