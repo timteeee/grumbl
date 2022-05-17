@@ -42,5 +42,3 @@ const RoomShowPage = ({ user, params, url }) => {
 }
 
 export default RoomShowPage
-
-// localhost:3000/rooms/9b58eea1-97c1-438f-9cda-0cefe980485f

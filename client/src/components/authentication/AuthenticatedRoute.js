@@ -2,7 +2,6 @@ import React from "react";
 import { Redirect, Route } from "react-router";
 
 const AuthenticationCheck = ({ component: Component, user, ...rest }) => {
-  // debugger
   const { url, params } = rest.computedMatch
   if (user === undefined) {
     return <div>Loading...</div>
