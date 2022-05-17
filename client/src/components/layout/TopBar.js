@@ -17,14 +17,14 @@ const TopBar = ({ user }) => {
   const authenticatedButtons = [
     <li key="sign-out">
       <SignOutButton />
-    </li>,
+    </li>
   ];
 
   return (
-    <nav className="relative  mx-auto p-5 shadow-xl">
+    <nav className="relative mx-auto p-5 shadow-xl">
       <div className=" flex items-center justify-between ">
-        <div className="text-2xl ">Grumbl</div>
-        <ul className="hidden md:flex justify-end space-x-8 w-1/2 ">
+        <div className="text-2xl">Grumbl</div>
+        <ul className="flex justify-end space-x-8 w-1/2 ">
           <li>
             <Link to="/">Home</Link>
           </li>
