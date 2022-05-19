@@ -4,7 +4,7 @@ const Message = ({ message }) => {
   if (!message.user) {
     return (
       <li className="flex items-baseline justify-center space-x-2 mt-1">
-        <p className="bg-slate-400 rounded-lg px-4 py-1 max-w-md whitespace-normal break-words">
+        <p className="max-w-md whitespace-normal break-words text-sm">
           {message.text}
         </p>
       </li>

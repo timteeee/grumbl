@@ -35,13 +35,20 @@ server.listen(configuration.web.port, configuration.web.host, () => {
 })
 
 io.on("connection", (socket) => {
-  socket.on("join-room", (roomData) => {
+  socket.on("room:join", (roomData) => {
     socket.join(roomData)
     socket.emit("joined", roomData)
   })
 
-  socket.on("send-message", (message) => {
-    socket.broadcast.to(message.room).emit("receive-message", message)
+  // socket.on("restaurants:get", ({ yelpQueryData, roomId }) => {
+  //   // Build out request to Yelp
+  //   console.log(roomId)
+  //   socket.to(roomId).emit("restaurants:show", { yelpQueryData, roomId })
+  // })
+
+  socket.on("message:send", ({ message, roomId }) => {
+    // console.log(message.room)
+    socket.broadcast.emit("message:receive", message)
   })
 })
 

@@ -7,8 +7,7 @@ const ChatWindow = ({ user, roomId, messages, sendMessage }) => {
     user: {
       id: user.id,
       email: user.email
-    },
-    room: roomId
+    }
   })
 
   const messagesList = messages.map((message, index) => {
@@ -45,15 +44,17 @@ const ChatWindow = ({ user, roomId, messages, sendMessage }) => {
         </ul>
       </div>
       <form 
-        className="flex justify-evenly"
+        className="flex justify-center"
         onSubmit={handleSubmit}>
-        <input 
-          className="border border-gray-200 rounded-lg w-4/5 px-3"
-          type="text" 
-          onChange={handleChange} 
-          value={newMessage.text}
-          placeholder="Message"
-        />
+          <input 
+            className="border border-gray-200 rounded-lg w-4/5 px-3"
+            type="text" 
+            onChange={handleChange} 
+            value={newMessage.text}
+            placeholder="Message"
+          />
+        <label>
+        </label>
         <input 
           className="bg-black text-white rounded-lg px-4 py-1"
           type="submit" 
