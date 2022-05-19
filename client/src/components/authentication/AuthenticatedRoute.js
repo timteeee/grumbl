@@ -7,7 +7,7 @@ const AuthenticationCheck = ({ component: Component, user, ...rest }) => {
     return <div>Loading...</div>
   }
   if (user !== null) {
-    return <Component user={user} params={params} url={url} />;
+    return <Component user={user} params={params} />;
   }
   return <Redirect to={{ pathname: "/user-sessions/new", state: { url, params } }} />;
 };

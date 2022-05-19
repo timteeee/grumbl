@@ -62,7 +62,7 @@ const SignInForm = (props) => {
     });
   };
   if (shouldRedirect) {
-    if (state.params.roomId) {
+    if (state) {
       location.href = state.url
     } else {
       location.href = "/";

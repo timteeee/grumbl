@@ -5,11 +5,12 @@ import { hot } from "react-hot-loader/root";
 import getCurrentUser from "../services/getCurrentUser";
 import "../assets/style/main.pcss";
 import AuthenticatedRoute from "./authentication/AuthenticatedRoute"
-import RoomShowPage from "./pages/RoomShowPage"
+// import RoomShowPage from "./RoomShowPage"
 import RegistrationForm from "./registration/RegistrationForm";
 import SignInForm from "./authentication/SignInForm";
 import TopBar from "./layout/TopBar";
 import NewRoomButton from "./navigation/NewRoomButton";
+import RoomConnection from "./RoomConnection";
 
 const App = (props) => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -35,8 +36,13 @@ const App = (props) => {
           <NewRoomButton />
         </Route>
         <AuthenticatedRoute 
-          exact path="/rooms/:roomId" 
-          component={RoomShowPage} 
+          exact path="/rooms/:action" 
+          component={RoomConnection} 
+          user={currentUser}
+        />
+        <AuthenticatedRoute 
+          exact path="/rooms/:action/:roomId" 
+          component={RoomConnection} 
           user={currentUser}
         />
         <Route exact path="/users/new" component={RegistrationForm} />

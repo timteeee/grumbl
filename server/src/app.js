@@ -30,19 +30,35 @@ app.use(rootRouter);
 const server = createServer(app)
 const io = new Server(server)
 
-server.listen(configuration.web.port, configuration.web.host, () => {
-  console.log(`Server is listening on port ${configuration.web.port}`)
+io.on("connection", (socket) => {
+  socket.on("room:create", (user) => {
+    // Create a Room record in database
+    io.to(socket.id).emit("room:create success", {
+      message: "Room created successfully, waiting to join...",
+      roomId: "room1"
+    })
+  })
+
+  socket.on("room:join", ({ user, roomId }) => {
+    // Create a connection record in the database
+    // Query for all connected users
+    socket.join(roomId)
+    io.to(roomId).emit("room:join success", {
+      roomId,
+    })
+  })
+
+  socket.on("room:landed", ({ user, roomId }) => {
+    console.log(`${user} landed in ${roomId}`)
+  })
+
+  socket.on("message:send", ({ message, roomId }) => {
+    socket.broadcast.to(roomId).emit("message:recieve", message)
+  })
 })
 
-io.on("connection", (socket) => {
-  socket.on("join-room", (roomData) => {
-    socket.join(roomData)
-    socket.emit("joined", roomData)
-  })
-
-  socket.on("send-message", (message) => {
-    socket.broadcast.to(message.room).emit("receive-message", message)
-  })
+server.listen(configuration.web.port, configuration.web.host, () => {
+  console.log(`Server is listening on port ${configuration.web.port}`)
 })
 
 export default app;

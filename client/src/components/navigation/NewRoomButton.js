@@ -19,7 +19,7 @@ const NewRoomButton = (props) => {
   }
 
   if (newRoomId) {
-    return <Redirect to={`/rooms/${newRoomId}`} />
+    return <Redirect to={`/rooms/create`} />
   }
 
   return (
