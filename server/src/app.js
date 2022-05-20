@@ -31,21 +31,19 @@ const server = createServer(app)
 const io = new Server(server)
 
 io.on("connection", (socket) => {
+  socket.emit("connected")
+
   socket.on("room:create", (user) => {
     // Create a Room record in database
-    io.to(socket.id).emit("room:create success", {
-      message: "Room created successfully, waiting to join...",
-      roomId: "room1"
-    })
+    io.to(socket.id).emit("room:create success", "room1")
   })
 
   socket.on("room:join", ({ user, roomId }) => {
     // Create a connection record in the database
     // Query for all connected users
     socket.join(roomId)
-    io.to(roomId).emit("room:join success", {
-      roomId,
-    })
+    console.log("JOINED ROOM")
+    io.to(socket.id).emit("room:join success", roomId)
   })
 
   socket.on("room:landed", ({ user, roomId }) => {

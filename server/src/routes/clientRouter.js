@@ -3,19 +3,19 @@ import getClientIndexPath from "../config/getClientIndexPath.js";
 
 const router = new express.Router();
 
-const clientRoutes = ["/", "/user-sessions/new", "/users/new", "/rooms/:action", "/rooms/:action/:id"];
-// const authedClientRoutes = ["/profile", "/rooms/new"];
+const clientRoutes = ["/", "/user-sessions/new", "/users/new" ];
+const authedClientRoutes = ["/profile", "/rooms/new", "/rooms/join/:roomId", "/rooms/:roomId"];
 
 router.get(clientRoutes, (req, res) => {
   res.sendFile(getClientIndexPath());
 });
 
-// router.get(authedClientRoutes, (req, res) => {
-//   if (req.user) {
-//     res.sendFile(getClientIndexPath());
-//   } else {
-//     res.redirect("/user-sessions/new")
-//   }
-// });
+router.get(authedClientRoutes, (req, res) => {
+  if (req.user) {
+    res.sendFile(getClientIndexPath());
+  } else {
+    res.redirect("/user-sessions/new")
+  }
+});
 
 export default router;
