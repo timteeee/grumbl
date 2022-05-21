@@ -9,7 +9,6 @@ import RegistrationForm from "./registration/RegistrationForm";
 import SignInForm from "./authentication/SignInForm";
 import TopBar from "./layout/TopBar";
 import NewRoomButton from "./navigation/NewRoomButton";
-import RoomConnector from "./rooms/RoomConnector";
 import RoomCreator from "./rooms/RoomCreator";
 import RoomShowPage from "./RoomShowPage";
 
@@ -40,12 +39,6 @@ const App = (props) => {
           exact path="/rooms/new" 
           component={RoomCreator}
           user={currentUser}
-        />
-        <AuthenticatedRoute 
-          exact path="/rooms/join/:roomId" 
-          component={RoomConnector} 
-          user={currentUser}
-          {...props}
         />
         <AuthenticatedRoute 
           exact path="/rooms/:roomId" 
