@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react"
-import ChatWindow from "./chat/ChatWindow"
+import ChatWindow from "./room/ChatWindow"
+import ToggleChatButton from "./room/ToggleChatButton"
+import YelpQueryForm from "./room/YelpQueryForm"
 import getCurrentHost from "../services/getCurrentHost"
 
 const RoomShowPage = ({ user, socket, ...rest }) => {
   const { roomId } = rest.computedMatch.params
   const [roomInfo, setRoomInfo] = useState({})
+  const [chatOpen, setChatOpen] = useState(false)
   const [messages, setMessages] = useState([
     {
       text: `Invite others to this room by sending them this link:\n${getCurrentHost()}/rooms/${roomId}`,
@@ -14,12 +17,15 @@ const RoomShowPage = ({ user, socket, ...rest }) => {
 
   useEffect(() => {
     socket.on("room:join success", (roomInfo) => {
-      // eventually will pass along more info than the room id, and this will be set into state
       setRoomInfo(roomInfo)
     })
 
     socket.on("message:recieve", newMessage => {
       setMessages(previousMessages => [...previousMessages, newMessage])
+    })
+
+    socket.on("restaurants:recieve", (yelpQueryData) => {
+      console.log(yelpQueryData)
     })
 
     socket.emit("room:join", { user, roomId: rest.computedMatch.params.roomId })
@@ -36,14 +42,26 @@ const RoomShowPage = ({ user, socket, ...rest }) => {
     socket.emit("message:send", { message: newMessage, roomId: roomInfo.id })
   }
 
+  const getYelpData = (yelpQueryData) => {
+    socket.emit("restaurants:get", {
+      yelpQueryData,
+      roomId: roomInfo.id
+    })
+  }
+
   return (
     <div className="container">
-      <ChatWindow 
-        user={user} 
-        roomId={roomId}
-        messages={messages}
-        sendMessage={sendMessage}
-      />
+      <ToggleChatButton setChatOpen={setChatOpen} />
+      <YelpQueryForm getYelpData={getYelpData}/>
+      {
+        chatOpen ?
+        <ChatWindow 
+          user={user} 
+          roomId={roomId}
+          messages={messages}
+          sendMessage={sendMessage}
+        /> : null
+      }
     </div>
   )
 }

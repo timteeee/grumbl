@@ -33,7 +33,6 @@ app.use(rootRouter);
 
 const server = createServer(app)
 const io = new Server(server)
-
 const rm = new RoomManager
 
 io.on("connection", (socket) => {
@@ -79,28 +78,15 @@ io.on("connection", (socket) => {
   socket.on("message:send", ({ message, roomId }) => {
     socket.to(roomId).emit("message:recieve", message)
   })
+
+  socket.on("restaurants:get", ({ yelpQueryData, roomId }) => {
+    console.log(yelpQueryData)
+    io.in(roomId).emit("restaurants:recieve", yelpQueryData)
+  })
 })
 
 server.listen(configuration.web.port, configuration.web.host, () => {
   console.log(`Server is listening on port ${configuration.web.port}`)
-})
-
-io.on("connection", (socket) => {
-  socket.on("room:join", (roomData) => {
-    socket.join(roomData)
-    socket.emit("joined", roomData)
-  })
-
-  // socket.on("restaurants:get", ({ yelpQueryData, roomId }) => {
-  //   // Build out request to Yelp
-  //   console.log(roomId)
-  //   socket.to(roomId).emit("restaurants:show", { yelpQueryData, roomId })
-  // })
-
-  socket.on("message:send", ({ message, roomId }) => {
-    // console.log(message.room)
-    socket.broadcast.emit("message:receive", message)
-  })
 })
 
 export default app;

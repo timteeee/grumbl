@@ -22,7 +22,6 @@ const YelpQueryForm = ({ getYelpData }) => {
         term: "",
         location: ""
       })
-    console.log("hello")
   }
 
   return (

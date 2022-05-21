@@ -9,7 +9,7 @@ import RegistrationForm from "./registration/RegistrationForm";
 import SignInForm from "./authentication/SignInForm";
 import TopBar from "./layout/TopBar";
 import NewRoomButton from "./navigation/NewRoomButton";
-import RoomCreator from "./rooms/RoomCreator";
+import RoomCreator from "./room/RoomCreator";
 import RoomShowPage from "./RoomShowPage";
 
 const App = (props) => {
