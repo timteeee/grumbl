@@ -1,14 +1,13 @@
 import React, { useState } from "react"
 import Message from "./Message"
 
-const ChatWindow = ({ user, roomId, messages, sendMessage }) => {
+const ChatWindow = ({ user, messages, sendMessage }) => {
   const [newMessage, setNewMessage] = useState({
     text: "",
     user: {
       id: user.id,
       email: user.email
-    },
-    room: roomId
+    }
   })
 
   const messagesList = messages.map((message, index) => {
