@@ -8,6 +8,7 @@ const RoomShowPage = ({ user, socket, ...rest }) => {
   const { roomId } = rest.computedMatch.params
   const [roomInfo, setRoomInfo] = useState({})
   const [chatOpen, setChatOpen] = useState(false)
+  const [restaurantStack, setRestaurantStack] = useState([])
   const [messages, setMessages] = useState([
     {
       text: `Invite others to this room by sending them this link:\n${getCurrentHost()}/rooms/${roomId}`,
@@ -46,6 +47,14 @@ const RoomShowPage = ({ user, socket, ...rest }) => {
     socket.emit("restaurants:get", {
       yelpQueryData,
       roomId: roomInfo.id
+    })
+  }
+
+  const vote = (voteData) => {
+    socket.emit("vote:send", {
+      voteData, 
+      roomId: roomInfo.id, 
+      user: user.id
     })
   }
 
