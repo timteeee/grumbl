@@ -13,6 +13,7 @@ import Room from "./models/Room.js";
 import RoomSerializer from "./serializers/RoomSerializer.js"
 import { ValidationError } from "objection";
 import RoomManager from "./services/RoomManager.js";
+import YelpClient from "./services/YelpClient.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -78,6 +79,27 @@ io.on("connection", (socket) => {
 
   socket.on("message:send", ({ message, roomId }) => {
     socket.to(roomId).emit("message:recieve", message)
+  })
+
+  socket.on("restaurants:get", async ({ term, location, pageNum, roomId }) => {
+    const response = await YelpClient.getRestaurants(term, location, pageNum)
+    if (response instanceof Error) {
+      io.in(roomId).emit("restaurants:error", response)
+    } else {
+      const restaurants = response.map((restaurant) => {
+        return {
+          id: restaurant.id,
+          name: restaurant.name,
+          imageUrl: restaurant.image_url,
+          yelpUrl: restaurant.url,
+          reviewCount: restaurant.review_count,
+          rating: restaurant.rating,
+          streetAddress: restaurant.location.address1,
+          city: restaurant.location.city
+        }
+      })
+      io.in(roomId).emit("restaurants:receive", JSON.stringify({ restaurants }))
+    }
   })
 })
 
