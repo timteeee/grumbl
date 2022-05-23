@@ -1,4 +1,5 @@
 import React from "react"
+import logo from "../../assets/images/yelp_burst.png"
 
 const YelpLogoLink = ({name, yelpUrl}) => {
   return (
@@ -8,7 +9,7 @@ const YelpLogoLink = ({name, yelpUrl}) => {
       rel="noreferrer noopener" 
     >
       <img 
-        src="../../assets/images/yelp_burst.png" 
+        src={logo} 
         alt={`Yelp Logo link to ${name}`}
       />
     </a>

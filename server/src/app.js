@@ -13,6 +13,7 @@ import Room from "./models/Room.js";
 import RoomSerializer from "./serializers/RoomSerializer.js"
 import { ValidationError } from "objection";
 import RoomManager from "./services/RoomManager.js";
+import YelpClient from "./services/YelpClient.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -38,7 +39,6 @@ const rm = new RoomManager
 io.on("connection", (socket) => {
   socket.on("room:create", async (user) => {
     const openRoom = await Room.query().findOne({ hostId: user.id, open: true })
-    console.log(openRoom)
     try {
       if (!openRoom) {
         const newRoom = await Room.query().insertAndFetch({ hostId: user.id })
@@ -64,7 +64,6 @@ io.on("connection", (socket) => {
     const room = await Room.query().findOne({ id: roomId })
     if (!rm.roomHasUser(user.id, room)) {
       rm.addUserToRoom(userJoiningRoom, room)
-      console.log(rm.getUsersInRoom(room))
     }
     socket.join(roomId)
     io.to(socket.id).emit("room:join success", rm.getRoomInfo(room))
@@ -79,9 +78,25 @@ io.on("connection", (socket) => {
     socket.to(roomId).emit("message:recieve", message)
   })
 
-  socket.on("restaurants:get", ({ yelpQueryData, roomId }) => {
-    console.log(yelpQueryData)
-    io.in(roomId).emit("restaurants:recieve", yelpQueryData)
+  socket.on("restaurants:get", async ({ term, location, pageNum, roomId }) => {
+    const response = await YelpClient.getRestaurants(term, location, pageNum)
+    if (response instanceof Error) {
+      io.in(roomId).emit("restaurants:error", response)
+    } else {
+      const restaurants = response.map((restaurant) => {
+        return {
+          id: restaurant.id,
+          name: restaurant.name,
+          imageUrl: restaurant.image_url,
+          yelpUrl: restaurant.url,
+          reviewCount: restaurant.review_count,
+          rating: restaurant.rating,
+          streetAddress: restaurant.location.address1,
+          city: restaurant.location.city
+        }
+      })
+      io.in(roomId).emit("restaurants:receive", JSON.stringify({ restaurants }))
+    }
   })
 })
 

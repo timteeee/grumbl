@@ -3,6 +3,7 @@ import ChatWindow from "./room/ChatWindow"
 import ToggleChatButton from "./room/ToggleChatButton"
 import YelpQueryForm from "./room/YelpQueryForm"
 import getCurrentHost from "../services/getCurrentHost"
+import RestaurantCard from "./room/RestaurantCard"
 
 const RoomShowPage = ({ user, socket, ...rest }) => {
   const { roomId } = rest.computedMatch.params
@@ -29,6 +30,12 @@ const RoomShowPage = ({ user, socket, ...rest }) => {
       console.log(yelpQueryData)
     })
 
+    socket.on("restaurants:receive", (jsonObject) => {
+      const { restaurants } = JSON.parse(jsonObject)
+      console.log(restaurants)
+      setRestaurantStack(restaurants)
+    })
+
     socket.emit("room:join", { user, roomId: rest.computedMatch.params.roomId })
     
     return () => {
@@ -45,12 +52,13 @@ const RoomShowPage = ({ user, socket, ...rest }) => {
 
   const getYelpData = (yelpQueryData) => {
     socket.emit("restaurants:get", {
-      yelpQueryData,
+      ...yelpQueryData,
+      pageNum: 1,
       roomId: roomInfo.id
     })
   }
 
-  const vote = (voteData) => {
+  const sendVote = (voteData) => {
     socket.emit("vote:send", {
       voteData, 
       roomId: roomInfo.id, 
@@ -58,9 +66,20 @@ const RoomShowPage = ({ user, socket, ...rest }) => {
     })
   }
 
+  const restaurantCards = restaurantStack.map((restaurant) => {
+    return (
+      <RestaurantCard 
+        key={restaurant.id}
+        {...restaurant}
+        sendVote={sendVote}
+      />
+    )
+  })
+
   return (
     <div className="container">
       <ToggleChatButton setChatOpen={setChatOpen} />
+      {restaurantCards}
       <YelpQueryForm getYelpData={getYelpData}/>
       {
         chatOpen ?

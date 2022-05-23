@@ -3,7 +3,10 @@ import VoteSection from "./VoteSection"
 import YelpLogoLink from "./YelpLogoLink"
 import YelpRating from "./YelpRating"
 
-const RestaurantCard = ({ id, name, yelpUrl, imageUrl, reviewCount, rating, location, vote }) => {
+const RestaurantCard = ({
+  id, name, imageUrl, yelpUrl, reviewCount, 
+  rating, streetAddress, city, vote 
+}) => {
   return (
     <div>
       <img src={imageUrl} alt={`${name} Yelp Photo`} />
@@ -14,8 +17,8 @@ const RestaurantCard = ({ id, name, yelpUrl, imageUrl, reviewCount, rating, loca
           </a>
         </h4>
         <div>
-          <p>{location.address1}</p>
-          <p>{location.city}</p>
+          <p>{streetAddress}</p>
+          <p>{city}</p>
         </div>
         <div>
           <div>

@@ -33,9 +33,11 @@ const YelpRating = ({ rating }) => {
       imageFileName = "regular_0@3x"
   }
 
+  const ratingLogo = require(`../../assets/images/yelp_stars/${imageFileName}.png`).default
+
   return (
     <img
-      src={`../../assets/images/yelp_stars/${imageFileName}.png`}
+      src={ratingLogo}
     />
   )
 }
