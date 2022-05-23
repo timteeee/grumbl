@@ -1,6 +1,6 @@
 import React from "react"
 
-const ToggleChatButton = ({ setChatOpen }) => {
+const ToggleViewButton = ({ setChatOpen }) => {
   const toggleChat = (event) => {
     event.preventDefault()
     setChatOpen(currentState => !currentState)
@@ -16,4 +16,4 @@ const ToggleChatButton = ({ setChatOpen }) => {
   )
 }
 
-export default ToggleChatButton
+export default ToggleViewButton

@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react"
 import ChatWindow from "./room/ChatWindow"
-import ToggleChatButton from "./room/ToggleChatButton"
+import ToggleViewButton from "./room/ToggleViewButton"
 import YelpQueryForm from "./room/YelpQueryForm"
 import getCurrentHost from "../services/getCurrentHost"
 import RestaurantCard from "./room/RestaurantCard"
+import DiscoveryWindow from "./room/DiscoveryWindow"
 
 const RoomShowPage = ({ user, socket, ...rest }) => {
   const { roomId } = rest.computedMatch.params
   const [roomInfo, setRoomInfo] = useState({})
-  const [chatOpen, setChatOpen] = useState(false)
+  const [chatOpen, setChatOpen] = useState(true)
+  const [searchSent, setSearchSent] = useState(false)
   const [restaurantStack, setRestaurantStack] = useState([])
   const [messages, setMessages] = useState([
     {
@@ -26,6 +28,10 @@ const RoomShowPage = ({ user, socket, ...rest }) => {
       setMessages(previousMessages => [...previousMessages, newMessage])
     })
 
+    socket.on("restaurants:searched", () => {
+      setSearchSent(true)
+    })
+
     socket.on("restaurants:receive", (jsonObject) => {
       const { restaurants } = JSON.parse(jsonObject)
       setRestaurantStack(restaurants)
@@ -34,8 +40,6 @@ const RoomShowPage = ({ user, socket, ...rest }) => {
     socket.emit("room:join", { user, roomId: rest.computedMatch.params.roomId })
     
     return () => {
-      socket.removeAllListeners("room:join success")
-      socket.removeAllListeners("message:recieve")
       socket.disconnect()
     }
   }, [])
@@ -51,6 +55,7 @@ const RoomShowPage = ({ user, socket, ...rest }) => {
       pageNum: 1,
       roomId: roomInfo.id
     })
+    setSearchSent(true)
   }
 
   const sendVote = (voteData) => {
@@ -62,26 +67,27 @@ const RoomShowPage = ({ user, socket, ...rest }) => {
   }
 
   const topOfStack = restaurantStack[0]
-  const restaurantCard = topOfStack ? 
-    <RestaurantCard 
-      key={topOfStack.id}
-      {...topOfStack}
-      sendVote={sendVote}
-    /> : null
 
   return (
-    <div className="container">
-      <ToggleChatButton setChatOpen={setChatOpen} />
-      {restaurantCard}
-      {/* <YelpQueryForm getYelpData={getYelpData}/> */}
+    <div className="">
+      <ToggleViewButton setChatOpen={setChatOpen} />
       {
-        chatOpen ?
-        <ChatWindow 
-          user={user} 
-          roomId={roomId}
-          messages={messages}
-          sendMessage={sendMessage}
-        /> : null
+        chatOpen ? (
+          <ChatWindow 
+            user={user} 
+            roomId={roomId}
+            messages={messages}
+            sendMessage={sendMessage}
+          /> 
+        ) : (
+          <DiscoveryWindow
+            searchSent={searchSent}
+            userIsHost={user.id === roomInfo.hostId ? true : false}
+            restaurant={topOfStack}
+            getYelpData={getYelpData}
+            sendVote={sendVote}
+          />
+        )
       }
     </div>
   )

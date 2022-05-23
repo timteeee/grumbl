@@ -7,6 +7,7 @@ const YelpLogoLink = ({name, yelpUrl}) => {
       href={yelpUrl} 
       target="_blank" 
       rel="noreferrer noopener" 
+      className="shrink-0 justify-end"
     >
       <img 
         className="h-9"

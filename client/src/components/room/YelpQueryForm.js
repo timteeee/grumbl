@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 
-const YelpQueryForm = ({ getYelpData }) => {
+const YelpQueryForm = ({ getYelpData, setSearchSent }) => {
   const [yelpQuery, setYelpQuery] = useState({
     categories: "food, All",
     term: "",
@@ -18,10 +18,10 @@ const YelpQueryForm = ({ getYelpData }) => {
     event.preventDefault()
     getYelpData(yelpQuery)
     setYelpQuery({
-        categories: "food, All",
-        term: "",
-        location: ""
-      })
+      categories: "food, All",
+      term: "",
+      location: ""
+    })
   }
 
   return (

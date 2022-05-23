@@ -79,6 +79,7 @@ io.on("connection", (socket) => {
   })
 
   socket.on("restaurants:get", async ({ term, location, pageNum, roomId }) => {
+    socket.to(roomId).emit("restaurants:searched")
     const response = await YelpClient.getRestaurants(term, location, pageNum)
     if (response instanceof Error) {
       io.in(roomId).emit("restaurants:error", response)
@@ -92,7 +93,8 @@ io.on("connection", (socket) => {
           reviewCount: restaurant.review_count,
           rating: restaurant.rating,
           streetAddress: restaurant.location.address1,
-          city: restaurant.location.city
+          city: restaurant.location.city,
+          categories: restaurant.categories
         }
       })
       io.in(roomId).emit("restaurants:receive", JSON.stringify({ restaurants }))
