@@ -98,7 +98,7 @@ const RegistrationForm = () => {
     <div className="flex flex-col items-center">
       <h1 className="text-4xl my-2">Register</h1>
       <form onSubmit={onSubmit}>
-      <div>
+        <div>
           <label className="flex flex-col">
             First Name
             <input
@@ -106,8 +106,7 @@ const RegistrationForm = () => {
               type="firstName"
               name="firstName"
               value={userPayload.firstName}
-              onChange={onInputChange}
-            />
+              onChange={onInputChange} />
             <FormError error={errors.firstName} />
           </label>
         </div>
