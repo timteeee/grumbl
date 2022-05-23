@@ -26,13 +26,8 @@ const RoomShowPage = ({ user, socket, ...rest }) => {
       setMessages(previousMessages => [...previousMessages, newMessage])
     })
 
-    socket.on("restaurants:recieve", (yelpQueryData) => {
-      console.log(yelpQueryData)
-    })
-
     socket.on("restaurants:receive", (jsonObject) => {
       const { restaurants } = JSON.parse(jsonObject)
-      console.log(restaurants)
       setRestaurantStack(restaurants)
     })
 
@@ -66,20 +61,18 @@ const RoomShowPage = ({ user, socket, ...rest }) => {
     })
   }
 
-  const restaurantCards = restaurantStack.map((restaurant) => {
-    return (
-      <RestaurantCard 
-        key={restaurant.id}
-        {...restaurant}
-        sendVote={sendVote}
-      />
-    )
-  })
+  const topOfStack = restaurantStack[0]
+  const restaurantCard = topOfStack ? 
+    <RestaurantCard 
+      key={topOfStack.id}
+      {...topOfStack}
+      sendVote={sendVote}
+    /> : null
 
   return (
     <div className="container">
       <ToggleChatButton setChatOpen={setChatOpen} />
-      {restaurantCards}
+      {restaurantCard}
       <YelpQueryForm getYelpData={getYelpData}/>
       {
         chatOpen ?
