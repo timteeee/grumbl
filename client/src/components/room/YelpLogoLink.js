@@ -9,6 +9,7 @@ const YelpLogoLink = ({name, yelpUrl}) => {
       rel="noreferrer noopener" 
     >
       <img 
+        className="h-9"
         src={logo} 
         alt={`Yelp Logo link to ${name}`}
       />

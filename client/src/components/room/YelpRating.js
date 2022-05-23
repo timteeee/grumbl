@@ -37,6 +37,7 @@ const YelpRating = ({ rating }) => {
 
   return (
     <img
+      className="h-5"
       src={ratingLogo}
     />
   )

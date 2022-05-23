@@ -73,7 +73,7 @@ const RoomShowPage = ({ user, socket, ...rest }) => {
     <div className="container">
       <ToggleChatButton setChatOpen={setChatOpen} />
       {restaurantCard}
-      <YelpQueryForm getYelpData={getYelpData}/>
+      {/* <YelpQueryForm getYelpData={getYelpData}/> */}
       {
         chatOpen ?
         <ChatWindow 
