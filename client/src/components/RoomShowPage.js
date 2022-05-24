@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react"
 import ChatWindow from "./room/ChatWindow"
-import ToggleViewButton from "./room/ToggleViewButton"
-import YelpQueryForm from "./room/YelpQueryForm"
+import ToggleViewButtons from "./room/ToggleViewButtons"
 import getCurrentHost from "../services/getCurrentHost"
-import RestaurantCard from "./room/RestaurantCard"
 import DiscoveryWindow from "./room/DiscoveryWindow"
 
 const RoomShowPage = ({ user, socket, ...rest }) => {
   const { roomId } = rest.computedMatch.params
   const [roomInfo, setRoomInfo] = useState({})
-  const [chatOpen, setChatOpen] = useState(true)
+  const [openWindow, setOpenWindow] = useState("chat")
   const [searchSent, setSearchSent] = useState(false)
   const [restaurantStack, setRestaurantStack] = useState([])
   const [messages, setMessages] = useState([
@@ -69,25 +67,26 @@ const RoomShowPage = ({ user, socket, ...rest }) => {
   const topOfStack = restaurantStack[0]
 
   return (
-    <div className="">
-      <ToggleViewButton setChatOpen={setChatOpen} />
+    <div className="h-[91%] relative">
+      <ToggleViewButtons 
+        openWindow={openWindow}
+        setOpenWindow={setOpenWindow} 
+      />
       {
-        chatOpen ? (
-          <ChatWindow 
+        openWindow === "chat" 
+        ? <ChatWindow 
             user={user} 
             roomId={roomId}
             messages={messages}
-            sendMessage={sendMessage}
+            sendMessage={sendMessage} 
           /> 
-        ) : (
-          <DiscoveryWindow
+        : <DiscoveryWindow
             searchSent={searchSent}
             userIsHost={user.id === roomInfo.hostId ? true : false}
             restaurant={topOfStack}
             getYelpData={getYelpData}
-            sendVote={sendVote}
+            sendVote={sendVote} 
           />
-        )
       }
     </div>
   )

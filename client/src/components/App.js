@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { hot } from "react-hot-loader/root";
 
 import getCurrentUser from "../services/getCurrentUser";
-import "../assets/style/main.pcss";
+import "../assets/style/tailwind.css";
 import AuthenticatedRoute from "./authentication/AuthenticatedRoute"
 import RegistrationForm from "./registration/RegistrationForm";
 import SignInForm from "./authentication/SignInForm";
@@ -29,26 +29,28 @@ const App = (props) => {
 
   return (
     <Router>
-      <TopBar user={currentUser} />
-      <Switch>
-        <Route exact path="/">
-          <h2 className="text-4xl">Welcome</h2>
-          <NewRoomButton />
-        </Route>
-        <AuthenticatedRoute 
-          exact path="/rooms/new" 
-          component={RoomCreator}
-          user={currentUser}
-        />
-        <AuthenticatedRoute 
-          exact path="/rooms/:roomId" 
-          component={RoomShowPage} 
-          user={currentUser}
-          {...props}
-        />
-        <Route exact path="/users/new" component={RegistrationForm} />
-        <Route exact path="/user-sessions/new" component={SignInForm} />
-      </Switch>
+      <div className="h-screen bg-gray-100">
+        <TopBar user={currentUser} />
+        <Switch>
+          <Route exact path="/">
+            <h2 className="text-4xl">Welcome</h2>
+            <NewRoomButton />
+          </Route>
+          <AuthenticatedRoute 
+            exact path="/rooms/new" 
+            component={RoomCreator}
+            user={currentUser}
+          />
+          <AuthenticatedRoute 
+            exact path="/rooms/:roomId" 
+            component={RoomShowPage} 
+            user={currentUser}
+            {...props}
+          />
+          <Route exact path="/users/new" component={RegistrationForm} />
+          <Route exact path="/user-sessions/new" component={SignInForm} />
+        </Switch>
+      </div>
     </Router>
   );
 };

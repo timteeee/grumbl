@@ -2,7 +2,7 @@
   "scripts": {
     "build": "./node_modules/.bin/webpack",
     "dev": "./node_modules/.bin/webpack-dev-server",
-    "tailwind": "npx tailwindcss --output ./src/assets/style/tailwind-output.css --watch"
+    "tailwind": "npx tailwindcss --input ./src/assets/style/main.pcss --output ./src/assets/style/tailwind.css --watch"
   },
   "license": "UNLICENSED",
   "private": true,

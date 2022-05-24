@@ -25,7 +25,7 @@ const YelpQueryForm = ({ getYelpData, setSearchSent }) => {
   }
 
   return (
-    <div className="">
+    <div className="my-48">
       <form 
         className="flex flex-col items-center space-y-2"
         onSubmit={handleSubmit}>
