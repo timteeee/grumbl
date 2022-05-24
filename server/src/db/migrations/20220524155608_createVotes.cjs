@@ -7,6 +7,7 @@
  */
 exports.up = async (knex) => {
   return knex.schema.createTable("votes", (table) => {
+    table.bigIncrements("id").notNullable()
     table.bigInteger("userId").notNullable().references("users.id")
     table.bigInteger("roomId").notNullable().references("rooms.id")
     table.string("restaurantId").notNullable()

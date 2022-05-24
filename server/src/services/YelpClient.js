@@ -33,11 +33,19 @@ class YelpClient {
 
   static async getOneRestaurant(restaurantId) {
     try {
-      const response = await got(`${baseUrl}/${restaurantId}`)
+      const response = await got(
+        `${baseUrl}/${restaurantId}`, 
+        { 
+          headers: {
+            "Authorization": `Bearer ${yelpKey}`
+          }
+        })
       if (!response.statusMessage === "OK") {
         throw new Error(`${response.status} (${response.statusText})`)
       }
-      return JSON.parse(response.body)
+      const business = JSON.parse(response.body)
+      console.log(business)
+      return business
     } catch(error) {
       return error
     }

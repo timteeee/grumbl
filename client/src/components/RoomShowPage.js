@@ -18,11 +18,12 @@ const RoomShowPage = ({ user, socket, ...rest }) => {
     }
   ])
 
-  // if (matchedRestaurant) {
-  //   return (
-  //     <MatchScreen restaurant={matchedRestaurant} />
-  //   )
-  // }
+  if (matchedRestaurant) {
+    // return (
+    //   <MatchScreen restaurant={matchedRestaurant} />
+    // )
+    console.log("MATCH", matchedRestaurant)
+  }
 
   useEffect(() => {
     socket.on("room:join success", (roomInfo) => {
@@ -42,7 +43,9 @@ const RoomShowPage = ({ user, socket, ...rest }) => {
       setRestaurantStack(restaurants)
     })
 
-    socket.on("vote:match", )
+    socket.on("vote:match", (restaurant) => {
+      setMatchedRestaurant(restaurant)
+    })
 
     socket.emit("room:join", { user, roomId: rest.computedMatch.params.roomId })
     
@@ -73,7 +76,7 @@ const RoomShowPage = ({ user, socket, ...rest }) => {
       roomId: roomInfo.id, 
       userId: user.id,
       restaurantId: topOfStack.id
-    })
+    }, (response) => console.log(response))
 
     setRestaurantStack(restaurantStack.filter(restaurant => {
       return restaurantStack.indexOf(restaurant) !== 0

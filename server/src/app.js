@@ -36,11 +36,13 @@ app.use(rootRouter);
 const server = createServer(app)
 const io = new Server(server)
 const rm = new RoomManager
+// app.locals.rm = new RoomManager
+// app.set("rm", new RoomManager) 
 
 io.on("connection", (socket) => {
   socket.on("room:create", async (user) => {
-    const openRoom = await Room.query().findOne({ hostId: user.id, open: true })
     try {
+      const openRoom = await Room.query().findOne({ hostId: user.id, open: true })
       if (!openRoom) {
         const newRoom = await Room.query().insertAndFetch({ hostId: user.id })
         const serializedRoom = RoomSerializer.getDetails(newRoom)
@@ -61,18 +63,24 @@ io.on("connection", (socket) => {
   })
 
   socket.on("room:join", async ({ user, roomId }) => {
-    const userJoiningRoom = { ...user, socket: socket.id }
-    const room = await Room.query().findOne({ id: roomId })
-    if (!rm.roomHasUser(user.id, room)) {
-      rm.addUserToRoom(userJoiningRoom, room)
+    try{
+      const userJoiningRoom = { ...user, socket: socket.id }
+      const room = await Room.query().findOne({ id: roomId })
+      if (!rm.roomHasUser(user.id, room)) {
+        rm.addUserToRoom(userJoiningRoom, room)
+      }
+      socket.join(roomId)
+      console.log(rm.getUsersInRoom(roomId))
+      io.to(socket.id).emit("room:join success", rm.getRoomInfo(room))
+    } catch(error) {
+      console.log(error)
     }
-    socket.join(roomId)
-    io.to(socket.id).emit("room:join success", rm.getRoomInfo(room))
   })
 
-  socket.on("disconnecting", async () => {
+  socket.on("disconnecting", () => {
     const [socketId, roomId] = socket.rooms
     rm.removeUserFromRoom(socketId, roomId)
+    console.log(rm.getUsersInRoom(roomId))
   })
 
   socket.on("message:send", ({ message, roomId }) => {
@@ -80,36 +88,46 @@ io.on("connection", (socket) => {
   })
 
   socket.on("restaurants:get", async ({ term, location, pageNum, roomId }) => {
+    try {
     socket.to(roomId).emit("restaurants:searched")
-    const response = await YelpClient.getRestaurants(term, location, pageNum)
-    if (response instanceof Error) {
-      io.in(roomId).emit("restaurants:error", response)
-    } else {
-      const restaurants = response.map((restaurant) => {
-        return {
-          id: restaurant.id,
-          name: restaurant.name,
-          imageUrl: restaurant.image_url,
-          yelpUrl: restaurant.url,
-          reviewCount: restaurant.review_count,
-          rating: restaurant.rating,
-          streetAddress: restaurant.location.address1,
-          city: restaurant.location.city,
-          categories: restaurant.categories
-        }
-      })
-      io.in(roomId).emit("restaurants:receive", JSON.stringify({ restaurants }))
+      const response = await YelpClient.getRestaurants(term, location, pageNum)
+      if (response instanceof Error) {
+        io.in(roomId).emit("restaurants:error", response)
+      } else {
+        const restaurants = response.map((restaurant) => {
+          return {
+            id: restaurant.id,
+            name: restaurant.name,
+            imageUrl: restaurant.image_url,
+            yelpUrl: restaurant.url,
+            reviewCount: restaurant.review_count,
+            rating: restaurant.rating,
+            streetAddress: restaurant.location.address1,
+            city: restaurant.location.city,
+            categories: restaurant.categories
+          }
+        })
+        io.in(roomId).emit("restaurants:receive", JSON.stringify({ restaurants }))
+      }
+    } catch(error) {
+      console.log(error)
     }
+  })
 
-    socket.on("vote:send", async ({ value, userId, roomId, restaurantId }) => {
+  socket.on("vote:send", async ({ value, userId, roomId, restaurantId }, callback) => {
+    console.log("vote sent")
+    try {
       await Vote.query().insert({ value, userId, roomId, restaurantId })
       const allYesVotesForRestaurant = await Vote.query()
         .where("roomId", "=", roomId)
         .where("restaurantId", "=", restaurantId)
         .where("value", "=", true)
+      console.log(allYesVotesForRestaurant)
       const usersInRoom = rm.getUsersInRoom(roomId)
+      console.log(usersInRoom)
       if (matchExists(usersInRoom, allYesVotesForRestaurant)) {
         const restaurant = await YelpClient.getOneRestaurant(restaurantId)
+        // console.log(restaurant)
         io.in(roomId).emit("vote:match", JSON.stringify({
           id: restaurant.id,
           name: restaurant.name,
@@ -121,8 +139,12 @@ io.on("connection", (socket) => {
           city: restaurant.location.city,
           categories: restaurant.categories
         }))
+        await Room.query().patch({ open: false }).findById(roomId)
       }
-    })
+    } catch(error) {
+      console.log(error)
+    }
+    callback({ voteStatus: "sent", vote: { value, userId, roomId, restaurantId }})
   })
 })
 
