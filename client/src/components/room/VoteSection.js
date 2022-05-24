@@ -2,13 +2,10 @@ import React from "react"
 import noVoteIcon from "../../assets/images/icons/no-vote-icon.png"
 import yesVoteIcon from "../../assets/images/icons/yes-vote-icon.png"
 
-const VoteSection = ({ restaurantId, vote }) => {
+const VoteSection = ({ sendVote }) => {
   const handleVote = (event) => {
     event.preventDefault()
-    vote({
-      value: event.currentTarget.value,
-      restaurant: restaurantId
-    })
+    sendVote(event.currentTarget.value)
   }
 
   return (

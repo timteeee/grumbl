@@ -9,11 +9,12 @@ import addMiddlewares from "./middlewares/addMiddlewares.js";
 import { createServer } from "http"
 import { Server } from "socket.io"
 import rootRouter from "./routes/rootRouter.js";
-import Room from "./models/Room.js";
+import { Room, Vote } from "./models/index.js";
 import RoomSerializer from "./serializers/RoomSerializer.js"
 import { ValidationError } from "objection";
 import RoomManager from "./services/RoomManager.js";
 import YelpClient from "./services/YelpClient.js";
+import matchExists from "./services/matchExists.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -99,6 +100,29 @@ io.on("connection", (socket) => {
       })
       io.in(roomId).emit("restaurants:receive", JSON.stringify({ restaurants }))
     }
+
+    socket.on("vote:send", async ({ value, userId, roomId, restaurantId }) => {
+      await Vote.query().insert({ value, userId, roomId, restaurantId })
+      const allYesVotesForRestaurant = await Vote.query()
+        .where("roomId", "=", roomId)
+        .where("restaurantId", "=", restaurantId)
+        .where("value", "=", true)
+      const usersInRoom = rm.getUsersInRoom(roomId)
+      if (matchExists(usersInRoom, allYesVotesForRestaurant)) {
+        const restaurant = await YelpClient.getOneRestaurant(restaurantId)
+        io.in(roomId).emit("vote:match", JSON.stringify({
+          id: restaurant.id,
+          name: restaurant.name,
+          imageUrl: restaurant.image_url,
+          yelpUrl: restaurant.url,
+          reviewCount: restaurant.review_count,
+          rating: restaurant.rating,
+          streetAddress: restaurant.location.address1,
+          city: restaurant.location.city,
+          categories: restaurant.categories
+        }))
+      }
+    })
   })
 })
 
