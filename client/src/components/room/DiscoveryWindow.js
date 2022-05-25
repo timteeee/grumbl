@@ -16,7 +16,7 @@ const DiscoveryWindow = ({ searchSent, userIsHost, restaurant, getYelpData, send
       {searchSent ? null : yelpForm}
       {
         restaurant 
-        ? <div className="h-full mx-auto flex flex-col justify-between sm:max-w-[75%] md:max-w-[380px] lg:min-w-[415px] lg:max-w-[55%]">
+        ? <div className="h-full mx-auto flex flex-col justify-between max-w-[380px] lg:min-w-[415px] lg:max-w-[55%]">
             <RestaurantCard {...restaurant} />
             <VoteSection sendVote={sendVote} />
           </div>
