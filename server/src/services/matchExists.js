@@ -1,5 +1,5 @@
-const matchExists = (users, yesVotes) => {
-  return Object.keys(users).length === yesVotes.length
+const matchExists = (numOfUsers, yesVotes) => {
+  return numOfUsers === yesVotes.length
 }
 
 export default matchExists

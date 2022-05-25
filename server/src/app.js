@@ -34,7 +34,10 @@ addMiddlewares(app);
 app.use(rootRouter);
 
 const server = createServer(app)
-const io = new Server(server)
+const io = new Server(server, {
+  pingInterval: 120000,
+  pingTimeout: 30000
+})
 const rm = new RoomManager
 // app.locals.rm = new RoomManager
 // app.set("rm", new RoomManager) 
@@ -70,7 +73,7 @@ io.on("connection", (socket) => {
         rm.addUserToRoom(userJoiningRoom, room)
       }
       socket.join(roomId)
-      console.log(socket.adapter)
+      console.log(io.sockets.adapter.rooms.get(roomId).size)
       io.to(socket.id).emit("room:join success", rm.getRoomInfo(room))
     } catch(error) {
       console.log(error)
@@ -123,9 +126,9 @@ io.on("connection", (socket) => {
         .where("restaurantId", "=", restaurantId)
         .where("value", "=", true)
       console.log(allYesVotesForRestaurant)
-      const usersInRoom = rm.getUsersInRoom(roomId)
-      console.log(usersInRoom)
-      if (matchExists(usersInRoom, allYesVotesForRestaurant)) {
+      const numActiveUsers = io.sockets.adapter.rooms.get(roomId).size
+      console.log(numActiveUsers)
+      if (matchExists(numActiveUsers, allYesVotesForRestaurant)) {
         const restaurant = await YelpClient.getOneRestaurant(restaurantId)
         // console.log(restaurant)
         io.in(roomId).emit("vote:match", JSON.stringify({
