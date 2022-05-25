@@ -12,7 +12,6 @@ import rootRouter from "./routes/rootRouter.js";
 import { Room, Vote } from "./models/index.js";
 import RoomSerializer from "./serializers/RoomSerializer.js"
 import { ValidationError } from "objection";
-import RoomManager from "./services/RoomManager.js";
 import YelpClient from "./services/YelpClient.js";
 import matchExists from "./services/matchExists.js";
 
@@ -34,10 +33,10 @@ addMiddlewares(app);
 app.use(rootRouter);
 
 const server = createServer(app)
-const io = new Server(server)
-const rm = new RoomManager
-// app.locals.rm = new RoomManager
-// app.set("rm", new RoomManager) 
+const io = new Server(server, {
+  pingInterval: 120000,
+  pingTimeout: 30000
+})
 
 io.on("connection", (socket) => {
   socket.on("room:create", async (user) => {
@@ -46,11 +45,9 @@ io.on("connection", (socket) => {
       if (!openRoom) {
         const newRoom = await Room.query().insertAndFetch({ hostId: user.id })
         const serializedRoom = RoomSerializer.getDetails(newRoom)
-        rm.openRoom(serializedRoom)
         io.to(socket.id).emit("room:create success", serializedRoom.id)
       } else {
         const serializedOpenRoom = RoomSerializer.getDetails(openRoom)
-        rm.openRoom(serializedOpenRoom)
         io.to(socket.id).emit("room:create open-room-exists", serializedOpenRoom.id)
       }
     } catch(errors) {
@@ -63,24 +60,22 @@ io.on("connection", (socket) => {
   })
 
   socket.on("room:join", async ({ user, roomId }) => {
+    socket.user = user
     try{
-      const userJoiningRoom = { ...user, socket: socket.id }
       const room = await Room.query().findOne({ id: roomId })
-      if (!rm.roomHasUser(user.id, room)) {
-        rm.addUserToRoom(userJoiningRoom, room)
-      }
+      const serializedRoom = RoomSerializer.getDetails(room)
       socket.join(roomId)
-      console.log(rm.getUsersInRoom(roomId))
-      io.to(socket.id).emit("room:join success", rm.getRoomInfo(room))
+      io.to(socket.id).emit("room:join success", serializedRoom)
+      socket.to(roomId).emit("user:joined", socket.user)
     } catch(error) {
       console.log(error)
     }
   })
 
   socket.on("disconnecting", () => {
+    console.log("DISCONNECT HAPPENED")
     const [socketId, roomId] = socket.rooms
-    rm.removeUserFromRoom(socketId, roomId)
-    console.log(rm.getUsersInRoom(roomId))
+    io.in(roomId).emit("user:left", socket.user)
   })
 
   socket.on("message:send", ({ message, roomId }) => {
@@ -123,11 +118,10 @@ io.on("connection", (socket) => {
         .where("restaurantId", "=", restaurantId)
         .where("value", "=", true)
       console.log(allYesVotesForRestaurant)
-      const usersInRoom = rm.getUsersInRoom(roomId)
-      console.log(usersInRoom)
-      if (matchExists(usersInRoom, allYesVotesForRestaurant)) {
+      const numActiveUsers = io.sockets.adapter.rooms.get(roomId).size
+      console.log(numActiveUsers)
+      if (matchExists(numActiveUsers, allYesVotesForRestaurant)) {
         const restaurant = await YelpClient.getOneRestaurant(restaurantId)
-        // console.log(restaurant)
         io.in(roomId).emit("vote:match", JSON.stringify({
           id: restaurant.id,
           name: restaurant.name,
