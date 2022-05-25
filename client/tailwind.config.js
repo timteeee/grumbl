@@ -1,13 +1,23 @@
+const tailwindcss = require("tailwindcss");
+
 module.exports = {
   content: ["./src/components/**/*.js"],
   theme: {
     screens: {
-      sm: '480px',
-      md: '768px',
-      lg: '976px',
-      xl: '1440px',
+      xs: "400px",
+      sm: "480px",
+      md: "740px",
+      lg: "976px",
+      xl: "1440px",
     },
-    extend: {},
+    extend: {
+      fontFamily: {
+        Lobster: ["Lobster", "cursive"]
+      }
+    },
   },
-  plugins: [],
+  plugins: [
+    require("tailwind-scrollbar-hide"),
+    require("@tailwindcss/aspect-ratio")
+  ],
 }

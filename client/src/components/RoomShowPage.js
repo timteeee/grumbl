@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from "react"
-import ChatWindow from "./chat/ChatWindow"
+import ChatWindow from "./room/ChatWindow"
+import ToggleViewButtons from "./room/ToggleViewButtons"
 import getCurrentHost from "../services/getCurrentHost"
+import DiscoveryWindow from "./room/DiscoveryWindow"
 
 const RoomShowPage = ({ user, socket, ...rest }) => {
   const { roomId } = rest.computedMatch.params
   const [roomInfo, setRoomInfo] = useState({})
+  const [openWindow, setOpenWindow] = useState("chat")
+  const [searchSent, setSearchSent] = useState(false)
+  const [restaurantStack, setRestaurantStack] = useState([])
+  const [matchedRestaurant, setMatchedRestaurant] = useState(null)
   const [messages, setMessages] = useState([
     {
       text: `Invite others to this room by sending them this link:\n${getCurrentHost()}/rooms/${roomId}`,
@@ -12,9 +18,15 @@ const RoomShowPage = ({ user, socket, ...rest }) => {
     }
   ])
 
+  if (matchedRestaurant) {
+    // return (
+    //   <MatchScreen restaurant={matchedRestaurant} />
+    // )
+    console.log("MATCH", matchedRestaurant)
+  }
+
   useEffect(() => {
     socket.on("room:join success", (roomInfo) => {
-      // eventually will pass along more info than the room id, and this will be set into state
       setRoomInfo(roomInfo)
     })
 
@@ -22,11 +34,44 @@ const RoomShowPage = ({ user, socket, ...rest }) => {
       setMessages(previousMessages => [...previousMessages, newMessage])
     })
 
-    socket.emit("room:join", { user, roomId: rest.computedMatch.params.roomId })
+    socket.on("restaurants:searched", () => {
+      setSearchSent(true)
+    })
+
+    socket.on("restaurants:receive", (jsonObject) => {
+      const { restaurants } = JSON.parse(jsonObject)
+      setRestaurantStack(restaurants)
+    })
+
+    socket.on("vote:match", (restaurant) => {
+      setMatchedRestaurant(restaurant)
+    })
+
+    socket.on("user:joined", (user) => {
+      setMessages(previousMessages => {
+        return [...previousMessages,
+          {
+            text: `${user} has joined the room`,
+            user: null
+          }
+        ]
+      })
+    })
+
+    socket.on("user:left", (user) => {
+      setMessages(previousMessages => {
+        return [...previousMessages,
+          {
+            text: `${user} has left the room`,
+            user: null
+          }
+        ]
+      })
+    })
+
+    socket.emit("room:join", { user: user.firstName, roomId: rest.computedMatch.params.roomId })
     
     return () => {
-      socket.removeAllListeners("room:join success")
-      socket.removeAllListeners("message:recieve")
       socket.disconnect()
     }
   }, [])
@@ -36,14 +81,68 @@ const RoomShowPage = ({ user, socket, ...rest }) => {
     socket.emit("message:send", { message: newMessage, roomId: roomInfo.id })
   }
 
+  const getYelpData = (yelpQueryData) => {
+    socket.emit("restaurants:get", {
+      ...yelpQueryData,
+      pageNum: 1,
+      roomId: roomInfo.id
+    })
+    setSearchSent(true)
+  }
+
+  const topOfStack = restaurantStack[0]
+
+  const sendVote = (voteValue) => {
+    socket.emit("vote:send", {
+      value: voteValue, 
+      roomId: roomInfo.id, 
+      userId: user.id,
+      restaurantId: topOfStack.id
+    }, (response) => console.log(response))
+
+    setRestaurantStack(restaurantStack.filter(restaurant => {
+      return restaurantStack.indexOf(restaurant) !== 0
+    }))
+  }
+
   return (
-    <div className="container">
-      <ChatWindow 
-        user={user} 
-        roomId={roomId}
-        messages={messages}
-        sendMessage={sendMessage}
-      />
+    <div className="min-h-full">
+      <div className="lg:hidden">
+        <ToggleViewButtons 
+          setOpenWindow={setOpenWindow} 
+        />
+        {
+          openWindow === "chat" 
+          ? <ChatWindow 
+              user={user} 
+              roomId={roomId}
+              messages={messages}
+              sendMessage={sendMessage} 
+            /> 
+          : <DiscoveryWindow
+              searchSent={searchSent}
+              userIsHost={user.id === roomInfo.hostId ? true : false}
+              restaurant={topOfStack}
+              getYelpData={getYelpData}
+              sendVote={sendVote} 
+            />
+        }
+      </div>
+      <div className="hidden lg:grid lg:grid-cols-2 lg:gap-x-2">
+        <DiscoveryWindow
+          searchSent={searchSent}
+          userIsHost={user.id === roomInfo.hostId ? true : false}
+          restaurant={topOfStack}
+          getYelpData={getYelpData}
+          sendVote={sendVote} 
+        />
+        <ChatWindow 
+          user={user} 
+          roomId={roomId}
+          messages={messages}
+          sendMessage={sendMessage} 
+        />
+      </div>
     </div>
   )
 }
