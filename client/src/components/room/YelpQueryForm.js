@@ -25,13 +25,13 @@ const YelpQueryForm = ({ getYelpData }) => {
   }
 
   return (
-    <div className="h-full py-[20em] px-6">
+    <div className="h-full py-[18em] px-6">
       <form 
         className="flex flex-col space-y-2"
         onSubmit={handleSubmit}>
         <label htmlFor="location" />
         <input 
-          className="border border-gray-200 rounded-lg px-3"
+          className="border border-gray-200 bg-white bg-opacity-50 backdrop-blur-md shadow-md rounded-lg px-3"
           onChange={handleChange}
           value={yelpQuery.location}
           name="location"
@@ -41,7 +41,7 @@ const YelpQueryForm = ({ getYelpData }) => {
         />
         <label htmlFor="term" />
         <input 
-          className="border border-gray-200 rounded-lg px-3"
+          className="border border-gray-200 bg-white bg-opacity-50 backdrop-blur-md shadow-md rounded-lg px-3"
           onChange={handleChange}
           value={yelpQuery.term}
           name="term"
@@ -49,7 +49,7 @@ const YelpQueryForm = ({ getYelpData }) => {
           type="text"
           placeholder="Search Terms"
         />
-        <input className="bg-[#ff485a] text-white rounded-lg mx-auto px-4 py-1 max-w-fit" type="submit" value="Let's Eat!" />
+        <input className="bg-[#ff485a] text-white rounded-lg shadow-md mx-auto px-4 py-1 max-w-fit" type="submit" value="Let's Eat!" />
       </form>
     </div>
   )

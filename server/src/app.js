@@ -63,6 +63,7 @@ io.on("connection", (socket) => {
   })
 
   socket.on("room:join", async ({ user, roomId }) => {
+    console.log("ROOM.JOIN HAPPENED")
     try{
       const userJoiningRoom = { ...user, socket: socket.id }
       const room = await Room.query().findOne({ id: roomId })
@@ -78,6 +79,7 @@ io.on("connection", (socket) => {
   })
 
   socket.on("disconnecting", () => {
+    console.log("DISCONNECT HAPPENED")
     const [socketId, roomId] = socket.rooms
     rm.removeUserFromRoom(socketId, roomId)
     console.log(rm.getUsersInRoom(roomId))

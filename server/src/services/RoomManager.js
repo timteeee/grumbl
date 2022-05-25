@@ -39,8 +39,10 @@ class RoomManager {
   }
 
   removeUserFromRoom(socketId, roomId) {
-    const user = Object.values(this.activeRooms[roomId].users).find((user) => user.socket === socketId)
-    delete this.activeRooms[roomId].users[user.id]
+    if (this.activeRooms[roomId]) {
+      const user = Object.values(this.activeRooms[roomId].users).find((user) => user.socket === socketId)
+      delete this.activeRooms[roomId].users[user.id]
+    }
   }
 }
 
