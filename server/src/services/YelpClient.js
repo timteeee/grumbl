@@ -44,7 +44,6 @@ class YelpClient {
         throw new Error(`${response.status} (${response.statusText})`)
       }
       const business = JSON.parse(response.body)
-      console.log(business)
       return business
     } catch(error) {
       return error
