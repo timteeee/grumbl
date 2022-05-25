@@ -6,9 +6,11 @@ import VoteSection from "./VoteSection"
 const DiscoveryWindow = ({ searchSent, userIsHost, restaurant, getYelpData, sendVote }) => {
   const yelpForm = userIsHost 
     ? <YelpQueryForm getYelpData={getYelpData} /> 
-    : <h3 className="text-center py-6">
+    : (
+      <h3 className="text-center py-6">
         Waiting for host to enter a meetup location...
       </h3>
+    )
   
 
   return (

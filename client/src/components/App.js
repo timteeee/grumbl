@@ -26,10 +26,10 @@ const App = (props) => {
   useEffect(() => {
     fetchCurrentUser()
   }, [])
-
+  // 
   return (
     <Router>
-      <div className="h-screen bg-gray-100">
+      <div className="h-screen bg-gradient-to-tl from-[#ffddd2] to-[#F4F1BB]">
         <TopBar user={currentUser} />
         <div className="">
           <Switch>

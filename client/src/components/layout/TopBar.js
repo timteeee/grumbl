@@ -21,7 +21,7 @@ const TopBar = ({ user }) => {
   ];
 
   return (
-    <nav className="min-w-full bg-white mx-auto mb-3 p-4 shadow-xl">
+    <nav className="min-w-full bg-white bg-opacity-50 backdrop-blur-md mx-auto mb-3 p-4 shadow-xl text-xl">
       <div className="flex items-center justify-center lg:justify-around">
         <Link 
         className="text-5xl font-Lobster text-[#ff485a]"

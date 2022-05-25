@@ -27,11 +27,8 @@ class RoomManager {
     return this.activeRooms[room.id].users[userId] ? true : false
   }
 
-  getUsersInRoom(room) {
-    if (!this.activeRooms[room.id]) {
-      this.openRoom(room)
-    }
-    return this.activeRooms[room.id].users
+  getUsersInRoom(roomId) {
+    return this.activeRooms[roomId].users
   }
 
   addUserToRoom(user, room) {

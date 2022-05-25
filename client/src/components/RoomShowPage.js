@@ -10,12 +10,20 @@ const RoomShowPage = ({ user, socket, ...rest }) => {
   const [openWindow, setOpenWindow] = useState("chat")
   const [searchSent, setSearchSent] = useState(false)
   const [restaurantStack, setRestaurantStack] = useState([])
+  const [matchedRestaurant, setMatchedRestaurant] = useState(null)
   const [messages, setMessages] = useState([
     {
       text: `Invite others to this room by sending them this link:\n${getCurrentHost()}/rooms/${roomId}`,
       user: null
     }
   ])
+
+  if (matchedRestaurant) {
+    // return (
+    //   <MatchScreen restaurant={matchedRestaurant} />
+    // )
+    console.log("MATCH", matchedRestaurant)
+  }
 
   useEffect(() => {
     socket.on("room:join success", (roomInfo) => {
@@ -33,6 +41,10 @@ const RoomShowPage = ({ user, socket, ...rest }) => {
     socket.on("restaurants:receive", (jsonObject) => {
       const { restaurants } = JSON.parse(jsonObject)
       setRestaurantStack(restaurants)
+    })
+
+    socket.on("vote:match", (restaurant) => {
+      setMatchedRestaurant(restaurant)
     })
 
     socket.emit("room:join", { user, roomId: rest.computedMatch.params.roomId })
@@ -56,15 +68,20 @@ const RoomShowPage = ({ user, socket, ...rest }) => {
     setSearchSent(true)
   }
 
-  const sendVote = (voteData) => {
-    socket.emit("vote:send", {
-      voteData, 
-      roomId: roomInfo.id, 
-      user: user.id
-    })
-  }
-
   const topOfStack = restaurantStack[0]
+
+  const sendVote = (voteValue) => {
+    socket.emit("vote:send", {
+      value: voteValue, 
+      roomId: roomInfo.id, 
+      userId: user.id,
+      restaurantId: topOfStack.id
+    }, (response) => console.log(response))
+
+    setRestaurantStack(restaurantStack.filter(restaurant => {
+      return restaurantStack.indexOf(restaurant) !== 0
+    }))
+  }
 
   return (
     <div className="min-h-full grid lg:grid-cols-2 lg:gap-x-2">

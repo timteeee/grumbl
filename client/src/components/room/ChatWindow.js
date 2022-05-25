@@ -46,7 +46,7 @@ const ChatWindow = ({ user, messages, sendMessage }) => {
 
   return (
     <div className="">
-      <div className="bg-white rounded-lg mx-auto mb-5 min-h-[69vh] max-h-[69vh] w-[89%] overflow-y-auto">
+      <div className="bg-white bg-opacity-50 backdrop-blur-md rounded-lg shadow-md mx-auto mb-5 min-h-[69vh] max-h-[69vh] w-[89%] overflow-y-auto">
         <ul className="w-full p-2 flex flex-grow flex-col justify-end">
           {messagesList}
           <AlwaysScrollToBottom messages={messages} />
@@ -56,7 +56,7 @@ const ChatWindow = ({ user, messages, sendMessage }) => {
         className="flex justify-center"
         onSubmit={handleSubmit}>
           <input 
-            className="border border-gray-200 rounded-lg w-4/5 px-3"
+            className="border border-gray-200 rounded-lg bg-white bg-opacity-50 backdrop-blur-md shadow-md w-4/5 px-3"
             type="text" 
             onChange={handleChange} 
             value={newMessage.text}
@@ -65,7 +65,7 @@ const ChatWindow = ({ user, messages, sendMessage }) => {
         <label>
         </label>
         <input 
-          className="bg-[#ff485a] text-white rounded-lg px-4 py-1"
+          className="bg-[#ff485a] text-white rounded-lg shadow-md px-4 py-1"
           type="submit" 
           value="Send" 
           role="button"

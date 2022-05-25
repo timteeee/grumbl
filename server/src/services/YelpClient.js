@@ -30,6 +30,26 @@ class YelpClient {
       return error
     }
   }
+
+  static async getOneRestaurant(restaurantId) {
+    try {
+      const response = await got(
+        `${baseUrl}/${restaurantId}`, 
+        { 
+          headers: {
+            "Authorization": `Bearer ${yelpKey}`
+          }
+        })
+      if (!response.statusMessage === "OK") {
+        throw new Error(`${response.status} (${response.statusText})`)
+      }
+      const business = JSON.parse(response.body)
+      console.log(business)
+      return business
+    } catch(error) {
+      return error
+    }
+  }
 }
 
 export default YelpClient
