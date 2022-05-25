@@ -31,7 +31,7 @@ const SignOutButton = () => {
 
   return (
     <button 
-      className="hover:underline hover:text-[#ff485a]"
+      className="text-gray-700 hover:underline hover:text-[#ff485a]"
       type="button" 
       role="button" 
       onClick={signOut}>
