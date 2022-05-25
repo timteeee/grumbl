@@ -1,5 +1,13 @@
-import React, { useState } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import Message from "./Message"
+
+const AlwaysScrollToBottom = (messages) => {
+  const ref = useRef()
+  useEffect(() => {
+    ref.current.scrollIntoView({ behavior: "smooth" })
+  }, [messages])
+  return <div ref={ref} />
+}
 
 const ChatWindow = ({ user, messages, sendMessage }) => {
   const [newMessage, setNewMessage] = useState({
@@ -8,16 +16,6 @@ const ChatWindow = ({ user, messages, sendMessage }) => {
       id: user.id,
       name: user.firstName
     }
-  })
-
-  const messagesList = messages.map((message, index) => {
-    if (message.user) {
-      message.belongsToCurrentUser = message.user.id === user.id ? true : false
-    }
-
-    return (
-      <Message key={index} message={message}/>
-    )
   })
 
   const handleChange = (event) => {
@@ -36,11 +34,22 @@ const ChatWindow = ({ user, messages, sendMessage }) => {
     })
   }
 
+  const messagesList = messages.map((message, index) => {
+    if (message.user) {
+      message.belongsToCurrentUser = message.user.id === user.id ? true : false
+    }
+
+    return (
+      <Message key={index} message={message}/>
+    )
+  })
+
   return (
     <div className="">
-      <div className="bg-white rounded-lg min-h-[69vh] max-h-[69vh] w-[89%] flex items-end mx-auto mb-5">
-        <ul className="flex flex-col w-full p-2 overflow-auto">
+      <div className="bg-white rounded-lg mx-auto mb-5 min-h-[69vh] max-h-[69vh] w-[89%] overflow-y-auto">
+        <ul className="w-full p-2 flex flex-grow flex-col justify-end">
           {messagesList}
+          <AlwaysScrollToBottom messages={messages} />
         </ul>
       </div>
       <form 
