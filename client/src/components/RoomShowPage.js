@@ -47,7 +47,29 @@ const RoomShowPage = ({ user, socket, ...rest }) => {
       setMatchedRestaurant(restaurant)
     })
 
-    socket.emit("room:join", { user, roomId: rest.computedMatch.params.roomId })
+    socket.on("user:joined", (user) => {
+      setMessages(previousMessages => {
+        return [...previousMessages,
+          {
+            text: `${user} has joined the room`,
+            user: null
+          }
+        ]
+      })
+    })
+
+    socket.on("user:left", (user) => {
+      setMessages(previousMessages => {
+        return [...previousMessages,
+          {
+            text: `${user} has left the room`,
+            user: null
+          }
+        ]
+      })
+    })
+
+    socket.emit("room:join", { user: user.firstName, roomId: rest.computedMatch.params.roomId })
     
     return () => {
       socket.disconnect()
