@@ -63,7 +63,6 @@ io.on("connection", (socket) => {
   })
 
   socket.on("room:join", async ({ user, roomId }) => {
-    console.log("ROOM.JOIN HAPPENED")
     try{
       const userJoiningRoom = { ...user, socket: socket.id }
       const room = await Room.query().findOne({ id: roomId })
@@ -71,7 +70,7 @@ io.on("connection", (socket) => {
         rm.addUserToRoom(userJoiningRoom, room)
       }
       socket.join(roomId)
-      console.log(rm.getUsersInRoom(roomId))
+      console.log(socket.adapter)
       io.to(socket.id).emit("room:join success", rm.getRoomInfo(room))
     } catch(error) {
       console.log(error)
@@ -82,7 +81,6 @@ io.on("connection", (socket) => {
     console.log("DISCONNECT HAPPENED")
     const [socketId, roomId] = socket.rooms
     rm.removeUserFromRoom(socketId, roomId)
-    console.log(rm.getUsersInRoom(roomId))
   })
 
   socket.on("message:send", ({ message, roomId }) => {
