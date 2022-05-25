@@ -9,7 +9,7 @@ const ToggleViewButtons = ({ setOpenWindow }) => {
   }
   
   return (
-    <div className="lg:hidden flex justify-center space-x-4 mb-3">
+    <div className="lg:hidden max-w-fit mx-auto space-x-4 mb-3">
       <button 
         className="border border-gray-300 bg-white hover:bg-gray-50 active:bg-gray-100 rounded-3xl px-4 py-1" 
         onClick={handleSelect}
