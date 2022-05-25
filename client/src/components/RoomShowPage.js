@@ -67,9 +67,8 @@ const RoomShowPage = ({ user, socket, ...rest }) => {
   const topOfStack = restaurantStack[0]
 
   return (
-    <div className="min-h-full grid grid-cols-1 lg:grid-cols-2 lg:gap-x-2">
+    <div className="min-h-full grid lg:grid-cols-2 lg:gap-x-2">
       <ToggleViewButtons 
-        openWindow={openWindow}
         setOpenWindow={setOpenWindow} 
       />
       {/* {
@@ -95,12 +94,12 @@ const RoomShowPage = ({ user, socket, ...rest }) => {
         getYelpData={getYelpData}
         sendVote={sendVote} 
       />
-      {/* <ChatWindow 
+      <ChatWindow 
         user={user} 
         roomId={roomId}
         messages={messages}
         sendMessage={sendMessage} 
-      /> */}
+      />
     </div>
   )
 }

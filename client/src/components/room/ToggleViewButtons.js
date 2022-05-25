@@ -11,7 +11,7 @@ const ToggleViewButtons = ({ setOpenWindow }) => {
   return (
     <div className="lg:hidden max-w-fit mx-auto space-x-4 mb-3">
       <button 
-        className="border border-gray-300 bg-white hover:bg-gray-50 active:bg-gray-100 rounded-3xl px-4 py-1" 
+        className="border border-gray-300 bg-white hover:bg-gray-50 hover:border-[#ff485a] active:bg-gray-100 rounded-3xl px-4 py-1" 
         onClick={handleSelect}
         role="button"
         name="discover">
@@ -21,7 +21,7 @@ const ToggleViewButtons = ({ setOpenWindow }) => {
         />
       </button>
       <button 
-        className="border border-gray-300 bg-white hover:bg-gray-50 active:bg-gray-100 rounded-3xl px-4 py-1" 
+        className="border border-gray-300 bg-white hover:bg-gray-50 hover:border-[#ff485a] active:bg-gray-100 rounded-3xl px-4 py-1" 
         onClick={handleSelect}
         role="button"
         name="chat">

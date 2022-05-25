@@ -3,7 +3,7 @@ import React from "react"
 const Message = ({ message }) => {
   if (!message.user) {
     return (
-      <li className="flex items-baseline justify-center space-x-2 mt-1">
+      <li className="flex items-baseline justify-center space-x-2 mt-1 mb-5">
         <p className=" max-w-md text-center whitespace-normal break-words text-sm">
           {message.text}
         </p>
@@ -17,9 +17,6 @@ const Message = ({ message }) => {
         <p className="bg-[#ff485a] text-white rounded-lg px-4 py-1 max-w-md whitespace-normal break-words">
           {message.text}
         </p>
-        {/* <p className="min-w-[10px]">
-          {message.user.name[0]}
-        </p> */}
       </li>
     )
   } else {

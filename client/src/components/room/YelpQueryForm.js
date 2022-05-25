@@ -25,7 +25,7 @@ const YelpQueryForm = ({ getYelpData }) => {
   }
 
   return (
-    <div className="h-full mt-[17em] px-6">
+    <div className="h-full py-[20em] px-6">
       <form 
         className="flex flex-col space-y-2"
         onSubmit={handleSubmit}>

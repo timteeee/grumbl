@@ -16,12 +16,12 @@ const RestaurantCard = ({ name, imageUrl, yelpUrl, reviewCount, rating, streetAd
 
   return (
     <div className="border border-gray-200 bg-white rounded-lg shadow-md p-3 mx-auto">
-      <div className="relative">
+      <div className="card-image-container relative">
         <img 
           className="rounded-md"
           src={imageUrl} 
           alt={`${name} Yelp Photo`} />
-          <div className="absolute bottom-0 left-0 right-0">
+          <div className="absolute bottom-0 left-0 right-0 h-[50%]">
             <div className="bg-gradient-to-t from-black to-transparent opacity-70 h-full relative">
             </div>
             <a

@@ -22,11 +22,19 @@ const TopBar = ({ user }) => {
 
   return (
     <nav className="min-w-full bg-white mx-auto mb-3 p-4 shadow-xl">
-      <div className="flex items-center justify-between">
-        <div className="text-2xl">Grumbl</div>
-        <ul className="flex justify-end space-x-8 w-1/2 ">
+      <div className="flex items-center justify-center lg:justify-around">
+        <Link 
+        className="text-5xl font-Lobster text-[#ff485a]"
+        to="/">
+            Grumbl
+        </Link>
+        <ul className="hidden lg:flex justify-end space-x-8 w-1/2 ">
           <li>
-            <Link to="/">Home</Link>
+            <Link 
+              className="hover:underline hover:text-[#ff485a]"
+              to="/">
+              Home  
+            </Link>
           </li>
           {user ? authenticatedButtons : unauthenticatedButtons}
         </ul>
