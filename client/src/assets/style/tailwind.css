@@ -653,6 +653,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   flex-direction: column;
 }
 
+.flex-col-reverse{
+  flex-direction: column-reverse;
+}
+
 .items-center{
   align-items: center;
 }
@@ -761,6 +765,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .border-gray-300{
   --tw-border-opacity: 1;
   border-color: rgb(209 213 219 / var(--tw-border-opacity));
+}
+
+.border-white{
+  --tw-border-opacity: 1;
+  border-color: rgb(255 255 255 / var(--tw-border-opacity));
 }
 
 .bg-gray-100{
@@ -961,6 +970,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-right: 1.5rem;
 }
 
+.py-\[18em\]{
+  padding-top: 18em;
+  padding-bottom: 18em;
+}
+
+.py-2{
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
 .text-center{
   text-align: center;
 }
@@ -1078,6 +1097,20 @@ Ensure the default browser behavior of the `hidden` attribute.
   background-color: rgb(22 163 74 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-\[\#ff485a\]:hover{
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 72 90 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-\[hsl\(354\2c 100\%\2c 64\%\)\]:hover{
+  --tw-bg-opacity: 1;
+  background-color: hsl(354 100% 64% / var(--tw-bg-opacity));
+}
+
+.hover\:bg-opacity-50:hover{
+  --tw-bg-opacity: 0.5;
+}
+
 .hover\:text-\[\#ff485a\]:hover{
   --tw-text-opacity: 1;
   color: rgb(255 72 90 / var(--tw-text-opacity));
@@ -1103,6 +1136,35 @@ Ensure the default browser behavior of the `hidden` attribute.
   background-color: rgb(21 128 61 / var(--tw-bg-opacity));
 }
 
+.active\:bg-\[hsl\(354\2c 100\%\2c 74\%\)\]:active{
+  --tw-bg-opacity: 1;
+  background-color: hsl(354 100% 74% / var(--tw-bg-opacity));
+}
+
+.active\:bg-\[hsl\(354\2c 100\%\2c 70\%\)\]:active{
+  --tw-bg-opacity: 1;
+  background-color: hsl(354 100% 70% / var(--tw-bg-opacity));
+}
+
+.active\:bg-\[hsl\(354\2c 100\%\2c 50\%\)\]:active{
+  --tw-bg-opacity: 1;
+  background-color: hsl(354 100% 50% / var(--tw-bg-opacity));
+}
+
+.active\:bg-\[hsl\(354\2c 100\%\2c 54\%\)\]:active{
+  --tw-bg-opacity: 1;
+  background-color: hsl(354 100% 54% / var(--tw-bg-opacity));
+}
+
+.active\:bg-\[hsl\(354\2c 90\%\2c 54\%\)\]:active{
+  --tw-bg-opacity: 1;
+  background-color: hsl(354 90% 54% / var(--tw-bg-opacity));
+}
+
+.active\:bg-opacity-50:active{
+  --tw-bg-opacity: 0.5;
+}
+
 @media (min-width: 480px){
   .sm\:max-w-\[66\%\]{
     max-width: 66%;
@@ -1116,8 +1178,16 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 
 @media (min-width: 976px){
+  .lg\:inline{
+    display: inline;
+  }
+
   .lg\:flex{
     display: flex;
+  }
+
+  .lg\:grid{
+    display: grid;
   }
 
   .lg\:hidden{

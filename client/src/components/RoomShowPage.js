@@ -84,39 +84,43 @@ const RoomShowPage = ({ user, socket, ...rest }) => {
   }
 
   return (
-    <div className="min-h-full grid lg:grid-cols-2 lg:gap-x-2">
-      <ToggleViewButtons 
-        setOpenWindow={setOpenWindow} 
-      />
-      {/* {
-        openWindow === "chat" 
-        ? <ChatWindow 
-            user={user} 
-            roomId={roomId}
-            messages={messages}
-            sendMessage={sendMessage} 
-          /> 
-        : <DiscoveryWindow
-            searchSent={searchSent}
-            userIsHost={user.id === roomInfo.hostId ? true : false}
-            restaurant={topOfStack}
-            getYelpData={getYelpData}
-            sendVote={sendVote} 
-          />
-      } */}
-      <DiscoveryWindow
-        searchSent={searchSent}
-        userIsHost={user.id === roomInfo.hostId ? true : false}
-        restaurant={topOfStack}
-        getYelpData={getYelpData}
-        sendVote={sendVote} 
-      />
-      <ChatWindow 
-        user={user} 
-        roomId={roomId}
-        messages={messages}
-        sendMessage={sendMessage} 
-      />
+    <div className="min-h-full">
+      <div className="lg:hidden">
+        <ToggleViewButtons 
+          setOpenWindow={setOpenWindow} 
+        />
+        {
+          openWindow === "chat" 
+          ? <ChatWindow 
+              user={user} 
+              roomId={roomId}
+              messages={messages}
+              sendMessage={sendMessage} 
+            /> 
+          : <DiscoveryWindow
+              searchSent={searchSent}
+              userIsHost={user.id === roomInfo.hostId ? true : false}
+              restaurant={topOfStack}
+              getYelpData={getYelpData}
+              sendVote={sendVote} 
+            />
+        }
+      </div>
+      <div className="hidden lg:grid lg:grid-cols-2 lg:gap-x-2">
+        <DiscoveryWindow
+          searchSent={searchSent}
+          userIsHost={user.id === roomInfo.hostId ? true : false}
+          restaurant={topOfStack}
+          getYelpData={getYelpData}
+          sendVote={sendVote} 
+        />
+        <ChatWindow 
+          user={user} 
+          roomId={roomId}
+          messages={messages}
+          sendMessage={sendMessage} 
+        />
+      </div>
     </div>
   )
 }
