@@ -12,7 +12,7 @@ const VoteSection = ({ restaurantId, vote }) => {
   }
 
   return (
-    <div className="pb-6 flex justify-around">
+    <div className="mx-auto space-x-24 my-6">
       <button 
       className="bg-red-500 hover:bg-red-600 active:bg-red-700 rounded-full shadow-sm p-5"
         onClick={handleVote}

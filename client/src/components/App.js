@@ -29,9 +29,9 @@ const App = (props) => {
 
   return (
     <Router>
-      <div className="min-h-[100%] flex flex-col bg-gray-100">
+      <div className="h-screen bg-gray-100">
         <TopBar user={currentUser} />
-        <div className="h-[90vh]">
+        <div className="">
           <Switch>
             <Route exact path="/">
               <h2 className="text-4xl">Welcome</h2>
