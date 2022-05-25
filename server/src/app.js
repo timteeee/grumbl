@@ -109,7 +109,6 @@ io.on("connection", (socket) => {
   })
 
   socket.on("vote:send", async ({ value, userId, roomId, restaurantId }) => {
-    console.log("vote sent")
     try {
       await Vote.query().insert({ value, userId, roomId, restaurantId })
       const allYesVotesForRestaurant = await Vote.query()
