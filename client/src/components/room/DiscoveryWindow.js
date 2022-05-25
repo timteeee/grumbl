@@ -4,17 +4,6 @@ import RestaurantCard from "./RestaurantCard"
 import VoteSection from "./VoteSection"
 
 const DiscoveryWindow = ({ searchSent, userIsHost, restaurant, matchedRestaurant, getYelpData, sendVote }) => {
-  // if (matchedRestaurant) {
-  //   return (
-  //     <div className="h-full mx-auto flex flex-col justify-between max-w-[380px] lg:min-w-[415px] lg:max-w-[55%]">
-  //       <h1 className="text-5xl text-gray-700 font-serif font-bold">
-  //         Match!
-  //       </h1>
-  //       <RestaurantCard {...matchedRestaurant} />
-  //     </div>
-  //   )
-  // }
-
   const yelpForm = userIsHost 
     ? <YelpQueryForm getYelpData={getYelpData} /> 
     : (
