@@ -25,8 +25,8 @@ const DiscoveryWindow = ({ searchSent, userIsHost, restaurant, matchedRestaurant
       }
       {
         matchedRestaurant
-        ? <div className="h-full mx-auto flex flex-col justify-between max-w-[380px] lg:min-w-[415px] lg:max-w-[55%]">
-            <h1 className="text-5xl text-center text-gray-700 font-serif font-bold">
+        ? <div className="h-full mx-auto flex flex-col justify-between space-y-3 mt-4 max-w-[380px] lg:min-w-[415px] lg:max-w-[55%]">
+            <h1 className="text-5xl text-center text-[#ff485a] font-serif font-bold">
               Match!
             </h1>
             <RestaurantCard {...matchedRestaurant} />
