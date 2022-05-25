@@ -95,62 +95,64 @@ const RegistrationForm = () => {
   }
 
   return (
-    <div className="flex flex-col items-center">
-      <h1 className="text-4xl my-2">Register</h1>
-      <form onSubmit={onSubmit}>
-        <div>
-          <label className="flex flex-col">
-            First Name
-            <input
-              className="border rounded-lg border-gray-200"
-              type="firstName"
-              name="firstName"
-              value={userPayload.firstName}
-              onChange={onInputChange} />
-            <FormError error={errors.firstName} />
-          </label>
+    <div className="h-full py-[11em] flex flex-col items-center">
+      <h1 className="text-4xl text-gray-700 font-serif font-bold my-2">Register</h1>
+      <form 
+      className="w-full flex flex-col items-center space-y-3"
+      onSubmit={onSubmit}>
+        <div className="w-full flex justify-center">
+          <label htmlFor="firstName"/>
+          <input
+            className="border border-gray-200 bg-white bg-opacity-50 backdrop-blur-md shadow-md rounded-lg min-w-[50%] px-3"
+            type="firstName"
+            name="firstName"
+            id="firstName"
+            value={userPayload.firstName}
+            placeholder="First Name"
+            onChange={onInputChange} />
+          <FormError error={errors.firstName} />
         </div>
-        <div>
-          <label className="flex flex-col">
-            Email
-            <input 
-              className="border rounded-lg border-gray-200" 
-              type="text" 
-              name="email" 
-              value={userPayload.email} 
-              onChange={onInputChange} />
-            <FormError error={errors.email} />
-          </label>
+        <div className="w-full flex justify-center">
+          <label htmlFor="email"/>
+          <input 
+            className="border border-gray-200 bg-white bg-opacity-50 backdrop-blur-md shadow-md rounded-lg min-w-[50%] px-3" 
+            type="text" 
+            name="email" 
+            id="email"
+            value={userPayload.email} 
+            placeholder="Email"
+            onChange={onInputChange} />
+          <FormError error={errors.email} />
         </div>
-        <div>
-          <label className="flex flex-col">
-            Password
-            <input
-              className="border rounded-lg border-gray-200"
-              type="password"
-              name="password"
-              value={userPayload.password}
-              onChange={onInputChange}
-            />
-            <FormError error={errors.password} />
-          </label>
+        <div className="w-full flex justify-center">
+          <label htmlFor="password"/>
+          <input
+            className="border border-gray-200 bg-white bg-opacity-50 backdrop-blur-md shadow-md rounded-lg min-w-[50%] px-3"
+            type="password"
+            name="password"
+            id="password"
+            value={userPayload.password}
+            placeholder="Password"
+            onChange={onInputChange}
+          />
+          <FormError error={errors.password} />
         </div>
-        <div>
-          <label className="flex flex-col">
-            Password Confirmation
-            <input
-              className="border rounded-lg border-gray-200"
-              type="password"
-              name="passwordConfirmation"
-              value={userPayload.passwordConfirmation}
-              onChange={onInputChange}
-            />
-            <FormError error={errors.passwordConfirmation} />
-          </label>
+        <div className="w-full flex justify-center">
+          <label htmlFor="passwordConfirmation"/>
+          <input
+            className="border border-gray-200 bg-white bg-opacity-50 backdrop-blur-md shadow-md rounded-lg min-w-[50%] px-3"
+            type="password"
+            name="passwordConfirmation"
+            id="passwordConfirmation"
+            value={userPayload.passwordConfirmation}
+            placeholder="Confirm Password"
+            onChange={onInputChange}
+          />
+          <FormError error={errors.passwordConfirmation} />
         </div>
         <div>
           <input 
-            className="mt-1 py-1 px-4 rounded-lg text-white bg-black" 
+            className="mt-1 py-1 px-4 rounded-lg shadow-md text-white font-serif bg-[#ff485a]" 
             type="submit" 
             value="Register" 
             role="button" />
