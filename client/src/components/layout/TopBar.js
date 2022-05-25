@@ -21,8 +21,8 @@ const TopBar = ({ user }) => {
   ];
 
   return (
-    <nav className="bg-white mx-auto p-4 shadow-xl">
-      <div className=" flex items-center justify-between ">
+    <nav className="min-w-full bg-white mx-auto mb-3 p-4 shadow-xl">
+      <div className="flex items-center justify-between">
         <div className="text-2xl">Grumbl</div>
         <ul className="flex justify-end space-x-8 w-1/2 ">
           <li>

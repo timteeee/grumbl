@@ -26,6 +26,7 @@
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
     "@babel/runtime": "^7.6.2",
+    "@tailwindcss/aspect-ratio": "^0.4.0",
     "@types/react-router-dom": "^5.3.3",
     "autoprefixer": "^10.4.7",
     "babel-loader": "~8.1",

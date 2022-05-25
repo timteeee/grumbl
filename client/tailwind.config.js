@@ -1,3 +1,5 @@
+const tailwindcss = require("tailwindcss");
+
 module.exports = {
   content: ["./src/components/**/*.js"],
   theme: {
@@ -11,6 +13,7 @@ module.exports = {
     extend: {},
   },
   plugins: [
-    require("tailwind-scrollbar-hide")
+    require("tailwind-scrollbar-hide"),
+    require("@tailwindcss/aspect-ratio")
   ],
 }

@@ -6,7 +6,7 @@ const ChatWindow = ({ user, messages, sendMessage }) => {
     text: "",
     user: {
       id: user.id,
-      email: user.email
+      name: user.firstName
     }
   })
 
@@ -38,8 +38,8 @@ const ChatWindow = ({ user, messages, sendMessage }) => {
 
   return (
     <div className="">
-      <div className="min-h-[50vh] w-4/5 flex items-end mx-auto mb-5">
-        <ul className="flex flex-col w-full">
+      <div className="bg-white rounded-lg min-h-[69vh] max-h-[69vh] w-[89%] flex items-end mx-auto mb-5">
+        <ul className="flex flex-col w-full p-2 overflow-auto">
           {messagesList}
         </ul>
       </div>
@@ -56,7 +56,7 @@ const ChatWindow = ({ user, messages, sendMessage }) => {
         <label>
         </label>
         <input 
-          className="bg-black text-white rounded-lg px-4 py-1"
+          className="bg-[#ff485a] text-white rounded-lg px-4 py-1"
           type="submit" 
           value="Send" 
           role="button"

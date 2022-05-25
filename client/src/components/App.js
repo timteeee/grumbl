@@ -29,27 +29,29 @@ const App = (props) => {
 
   return (
     <Router>
-      <div className="h-screen bg-gray-100">
+      <div className="min-h-[100%] flex flex-col bg-gray-100">
         <TopBar user={currentUser} />
-        <Switch>
-          <Route exact path="/">
-            <h2 className="text-4xl">Welcome</h2>
-            <NewRoomButton />
-          </Route>
-          <AuthenticatedRoute 
-            exact path="/rooms/new" 
-            component={RoomCreator}
-            user={currentUser}
-          />
-          <AuthenticatedRoute 
-            exact path="/rooms/:roomId" 
-            component={RoomShowPage} 
-            user={currentUser}
-            {...props}
-          />
-          <Route exact path="/users/new" component={RegistrationForm} />
-          <Route exact path="/user-sessions/new" component={SignInForm} />
-        </Switch>
+        <div className="h-[90vh]">
+          <Switch>
+            <Route exact path="/">
+              <h2 className="text-4xl">Welcome</h2>
+              <NewRoomButton />
+            </Route>
+            <AuthenticatedRoute 
+              exact path="/rooms/new" 
+              component={RoomCreator}
+              user={currentUser}
+            />
+            <AuthenticatedRoute 
+              exact path="/rooms/:roomId" 
+              component={RoomShowPage} 
+              user={currentUser}
+              {...props}
+            />
+            <Route exact path="/users/new" component={RegistrationForm} />
+            <Route exact path="/user-sessions/new" component={SignInForm} />
+          </Switch>
+        </div>
       </div>
     </Router>
   );

@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 
-const YelpQueryForm = ({ getYelpData, setSearchSent }) => {
+const YelpQueryForm = ({ getYelpData }) => {
   const [yelpQuery, setYelpQuery] = useState({
     categories: "food, All",
     term: "",
@@ -25,7 +25,7 @@ const YelpQueryForm = ({ getYelpData, setSearchSent }) => {
   }
 
   return (
-    <div className="my-48">
+    <div className="h-full flex flex-col justify-center">
       <form 
         className="flex flex-col items-center space-y-2"
         onSubmit={handleSubmit}>
@@ -49,7 +49,7 @@ const YelpQueryForm = ({ getYelpData, setSearchSent }) => {
           type="text"
           placeholder="Search Terms"
         />
-        <input className="bg-black text-white rounded-lg px-4 py-1" type="submit" value="Get Restaurants" />
+        <input className="bg-[#ff485a] text-white rounded-lg px-4 py-1" type="submit" value="Let's Eat!" />
       </form>
     </div>
   )
