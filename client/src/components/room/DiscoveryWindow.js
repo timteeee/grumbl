@@ -3,7 +3,7 @@ import YelpQueryForm from "./YelpQueryForm"
 import RestaurantCard from "./RestaurantCard"
 import VoteSection from "./VoteSection"
 
-const DiscoveryWindow = ({ searchSent, userIsHost, restaurant, getYelpData, sendVote }) => {
+const DiscoveryWindow = ({ searchSent, userIsHost, restaurant, matchedRestaurant, getYelpData, sendVote }) => {
   const yelpForm = userIsHost 
     ? <YelpQueryForm getYelpData={getYelpData} /> 
     : (
@@ -12,7 +12,6 @@ const DiscoveryWindow = ({ searchSent, userIsHost, restaurant, getYelpData, send
       </h3>
     )
   
-
   return (
     <div className="">
       {searchSent ? null : yelpForm}
@@ -21,6 +20,16 @@ const DiscoveryWindow = ({ searchSent, userIsHost, restaurant, getYelpData, send
         ? <div className="h-full mx-auto flex flex-col justify-between max-w-[380px] lg:min-w-[415px] lg:max-w-[55%]">
             <RestaurantCard {...restaurant} />
             <VoteSection sendVote={sendVote} />
+          </div>
+        : null
+      }
+      {
+        matchedRestaurant
+        ? <div className="h-full mx-auto flex flex-col justify-between space-y-3 mt-4 max-w-[380px] lg:min-w-[415px] lg:max-w-[55%]">
+            <h1 className="text-5xl text-center text-[#ff485a] font-serif font-bold">
+              Match!
+            </h1>
+            <RestaurantCard {...matchedRestaurant} />
           </div>
         : null
       }
