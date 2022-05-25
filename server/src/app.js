@@ -73,7 +73,6 @@ io.on("connection", (socket) => {
   })
 
   socket.on("disconnecting", () => {
-    console.log("DISCONNECT HAPPENED")
     const [socketId, roomId] = socket.rooms
     io.in(roomId).emit("user:left", socket.user)
   })
@@ -109,7 +108,7 @@ io.on("connection", (socket) => {
     }
   })
 
-  socket.on("vote:send", async ({ value, userId, roomId, restaurantId }, callback) => {
+  socket.on("vote:send", async ({ value, userId, roomId, restaurantId }) => {
     console.log("vote sent")
     try {
       await Vote.query().insert({ value, userId, roomId, restaurantId })
@@ -117,9 +116,7 @@ io.on("connection", (socket) => {
         .where("roomId", "=", roomId)
         .where("restaurantId", "=", restaurantId)
         .where("value", "=", true)
-      console.log(allYesVotesForRestaurant)
       const numActiveUsers = io.sockets.adapter.rooms.get(roomId).size
-      console.log(numActiveUsers)
       if (matchExists(numActiveUsers, allYesVotesForRestaurant)) {
         const restaurant = await YelpClient.getOneRestaurant(restaurantId)
         io.in(roomId).emit("vote:match", JSON.stringify({
@@ -138,7 +135,6 @@ io.on("connection", (socket) => {
     } catch(error) {
       console.log(error)
     }
-    callback({ voteStatus: "sent", vote: { value, userId, roomId, restaurantId }})
   })
 })
 

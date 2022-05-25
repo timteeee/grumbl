@@ -18,13 +18,6 @@ const RoomShowPage = ({ user, socket, ...rest }) => {
     }
   ])
 
-  if (matchedRestaurant) {
-    // return (
-    //   <MatchScreen restaurant={matchedRestaurant} />
-    // )
-    console.log("MATCH", matchedRestaurant)
-  }
-
   useEffect(() => {
     socket.on("room:join success", (roomInfo) => {
       setRoomInfo(roomInfo)
@@ -44,7 +37,8 @@ const RoomShowPage = ({ user, socket, ...rest }) => {
     })
 
     socket.on("vote:match", (restaurant) => {
-      setMatchedRestaurant(restaurant)
+      setMatchedRestaurant(JSON.parse(restaurant))
+      setRestaurantStack([])
     })
 
     socket.on("user:joined", (user) => {
@@ -98,7 +92,7 @@ const RoomShowPage = ({ user, socket, ...rest }) => {
       roomId: roomInfo.id, 
       userId: user.id,
       restaurantId: topOfStack.id
-    }, (response) => console.log(response))
+    })
 
     setRestaurantStack(restaurantStack.filter(restaurant => {
       return restaurantStack.indexOf(restaurant) !== 0
@@ -123,6 +117,7 @@ const RoomShowPage = ({ user, socket, ...rest }) => {
               searchSent={searchSent}
               userIsHost={user.id === roomInfo.hostId ? true : false}
               restaurant={topOfStack}
+              matchedRestaurant={matchedRestaurant}
               getYelpData={getYelpData}
               sendVote={sendVote} 
             />
@@ -133,6 +128,7 @@ const RoomShowPage = ({ user, socket, ...rest }) => {
           searchSent={searchSent}
           userIsHost={user.id === roomInfo.hostId ? true : false}
           restaurant={topOfStack}
+          matchedRestaurant={matchedRestaurant}
           getYelpData={getYelpData}
           sendVote={sendVote} 
         />
