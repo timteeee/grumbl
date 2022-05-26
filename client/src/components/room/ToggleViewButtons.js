@@ -1,6 +1,6 @@
 import React from "react"
-import chatIcon from "../../assets/images/icons/chat-icon.png"
-import magnifyingGlassIcon from "../../assets/images/icons/magnifier-icon.png"
+import chatIcon from "../../assets/images/chat-icon.png"
+import magnifyingGlassIcon from "../../assets/images/magnifier-icon.png"
 
 const ToggleViewButtons = ({ setOpenWindow }) => {
   const handleSelect = (event) => {
