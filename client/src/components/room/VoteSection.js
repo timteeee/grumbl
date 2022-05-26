@@ -1,6 +1,6 @@
 import React from "react"
-import noVoteIcon from "../../assets/images/icons/no-vote-icon.png"
-import yesVoteIcon from "../../assets/images/icons/yes-vote-icon.png"
+import noVoteIcon from "../../assets/images/no-vote-icon.png"
+import yesVoteIcon from "../../assets/images/yes-vote-icon.png"
 
 const VoteSection = ({ sendVote }) => {
   const handleVote = (event) => {
@@ -25,7 +25,5 @@ const VoteSection = ({ sendVote }) => {
     </div>
   )
 }
-
-//absolute left-0 right-0 bottom-5
 
 export default VoteSection
