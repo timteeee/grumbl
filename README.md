@@ -24,7 +24,8 @@ card for the restaurant they matched on.
 
 ---
 ### TODO
-* About the Developer page
+* Convert Socket/Room Management to use the PostgresQL Adapter made available by Socket.io
+* Overhaul back end operations beyond mvp functionality
 * Handle when a user tries to join a room that is closed
 * Persistance of room state, such that if a user refreshes the page while in a room, 
 their message history and current cards/which ones they have already looked at
@@ -32,7 +33,7 @@ remain
 * Swipe gestures for mobile
 * Friends list
 * Account Page
-
+* About the Developer page
 ---
 ### Contributing
 Bug reports and pull requests are welcome on GitHub at 
@@ -44,4 +45,4 @@ and contributors are expected to adhere to the
 
 ---
 ### License
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+The project is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
