@@ -1,8 +1,11 @@
-import React from "react"
+import React, { useContext } from "react"
 import { Link } from "react-router-dom"
+import { UserContext } from "../services/UserContext"
 import GetStartedButton from "./navigation/GetStartedButton"
 
-const LandingPage = ({ user }) => {
+const LandingPage = () => {
+  const user = useContext(UserContext)
+
   const greetingHeader = user ? `Welcome, ${user.firstName}!` : "Welcome to Grumbl!"
 
   const unauthenticatedButtons = [
@@ -14,9 +17,7 @@ const LandingPage = ({ user }) => {
     <li 
       key="sign-up"
       className="bg-[#ff485a] font-serif text-white text-2xl rounded-xl shadow-md py-1 px-3 max-w-fit">
-      <Link to="/users/new" className="">
-        Sign Up
-      </Link>
+      <Link to="/users/new">Sign Up</Link>
     </li>,
   ];
 

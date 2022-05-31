@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import ChatWindow from "./room/ChatWindow"
 import ToggleViewButtons from "./room/ToggleViewButtons"
 import getCurrentHost from "../services/getCurrentHost"
 import DiscoveryWindow from "./room/DiscoveryWindow"
+import { UserContext } from "../services/UserContext"
 
-const RoomShowPage = ({ user, socket, ...rest }) => {
+const RoomShowPage = ({ socket, ...rest }) => {
+  const user = useContext(UserContext)
   const { roomId } = rest.computedMatch.params
   const [roomInfo, setRoomInfo] = useState({})
   const [openWindow, setOpenWindow] = useState("chat")
@@ -71,6 +73,7 @@ const RoomShowPage = ({ user, socket, ...rest }) => {
   }, [])
 
   const sendMessage = (newMessage) => {
+    newMessage.user = { id: user.id, name: user.firstName }
     setMessages(previousMessages => [...previousMessages, newMessage])
     socket.emit("message:send", { message: newMessage, roomId: roomInfo.id })
   }
@@ -108,7 +111,7 @@ const RoomShowPage = ({ user, socket, ...rest }) => {
         {
           openWindow === "chat" 
           ? <ChatWindow 
-              user={user} 
+              userId={user.id} 
               roomId={roomId}
               messages={messages}
               sendMessage={sendMessage} 

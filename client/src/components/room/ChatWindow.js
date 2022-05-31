@@ -9,14 +9,8 @@ const AlwaysScrollToBottom = (messages) => {
   return <div ref={ref} />
 }
 
-const ChatWindow = ({ user, messages, sendMessage }) => {
-  const [newMessage, setNewMessage] = useState({
-    text: "",
-    user: {
-      id: user.id,
-      name: user.firstName
-    }
-  })
+const ChatWindow = ({ userId, messages, sendMessage }) => {
+  const [newMessage, setNewMessage] = useState({ text: "" })
 
   const handleChange = (event) => {
     setNewMessage({
@@ -36,7 +30,7 @@ const ChatWindow = ({ user, messages, sendMessage }) => {
 
   const messagesList = messages.map((message, index) => {
     if (message.user) {
-      message.belongsToCurrentUser = message.user.id === user.id ? true : false
+      message.belongsToCurrentUser = message.user.id === userId ? true : false
     }
 
     return (
