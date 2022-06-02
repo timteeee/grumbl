@@ -3,10 +3,10 @@ import ChatWindow from "./room/ChatWindow"
 import ToggleViewButtons from "./room/ToggleViewButtons"
 import getCurrentHost from "../services/getCurrentHost"
 import DiscoveryWindow from "./room/DiscoveryWindow"
-import { UserContext } from "../services/UserContext"
+import { useUser } from "../services/UserContext"
 
 const RoomShowPage = ({ socket, ...rest }) => {
-  const user = useContext(UserContext)
+  const user = useUser()
   const { roomId } = rest.computedMatch.params
   const [roomInfo, setRoomInfo] = useState({})
   const [openWindow, setOpenWindow] = useState("chat")

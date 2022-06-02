@@ -1,9 +1,8 @@
-import React, { useState, useEffect, createContext } from "react";
+import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { hot } from "react-hot-loader/root";
 import "../assets/style/tailwind.css";
-import getCurrentUser from "../services/getCurrentUser";
-import { UserContext } from "../services/UserContext";
+import { UserProvider } from "../services/UserContext";
 import AuthenticatedRoute from "./authentication/AuthenticatedRoute"
 import RegistrationForm from "./registration/RegistrationForm";
 import SignInForm from "./authentication/SignInForm";
@@ -13,25 +12,10 @@ import RoomShowPage from "./RoomShowPage";
 import LandingPage from "./LandingPage";
 
 const App = (props) => {
-  const [currentUser, setCurrentUser] = useState(undefined);
-
-  const fetchCurrentUser = async () => {
-    try {
-      const user = await getCurrentUser()
-      setCurrentUser(user)
-    } catch(err) {
-      setCurrentUser(null)
-    }
-  }
-
-  useEffect(() => {
-    fetchCurrentUser()
-  }, [])
-
   return (
     <Router>
-      <UserContext.Provider value={currentUser}>
-        <div className="h-screen bg-gradient-to-tl from-[#ffddd2] to-[#F4F1BB]">
+      <div className="h-screen bg-gradient-to-tl from-[#ffddd2] to-[#F4F1BB]">
+        <UserProvider>
           <TopBar />
           <div className="">
             <Switch>
@@ -46,8 +30,8 @@ const App = (props) => {
               <Route exact path="/user-sessions/new" component={SignInForm} />
             </Switch>
           </div>
-        </div>
-      </UserContext.Provider>
+        </UserProvider>
+      </div>
     </Router>
   );
 };

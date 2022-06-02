@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react"
 import { Redirect } from "react-router-dom"
-import { UserContext } from "../../services/UserContext"
+import { useUser } from "../../services/UserContext"
 
 const RoomCreator = ({ socket, ...rest }) => {
-  const user = useContext(UserContext)
+  const user = useUser()
   const [roomId, setRoomId] = useState(null)
 
   useEffect(() => {

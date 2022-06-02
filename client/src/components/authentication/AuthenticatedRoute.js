@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import { Redirect, Route } from "react-router";
-import { UserContext } from "../../services/UserContext";
+import { useUser } from "../../services/UserContext";
 import SocketGenerator from "./SocketGenerator";
 
 const AuthenticationCheck = ({ component: Component, inheritedSocket, ...rest }) => {
-  const user = useContext(UserContext)
+  const user = useUser()
   const { url, params } = rest.computedMatch
   if (user === undefined) {
     return <div>Loading...</div>
