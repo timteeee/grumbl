@@ -136,7 +136,7 @@ const RoomShowPage = ({ socket, ...rest }) => {
           sendVote={sendVote} 
         />
         <ChatWindow 
-          user={user} 
+          userId={user.id} 
           roomId={roomId}
           messages={messages}
           sendMessage={sendMessage} 

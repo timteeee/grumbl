@@ -29,12 +29,10 @@ const ChatWindow = ({ userId, messages, sendMessage }) => {
   }
 
   const messagesList = messages.map((message, index) => {
-    if (message.user) {
-      message.belongsToCurrentUser = message.user.id === userId ? true : false
-    }
+    const belongsToUser = message.user?.id === userId ? true : false
 
     return (
-      <Message key={index} message={message}/>
+      <Message key={index} message={message} belongsToUser={belongsToUser}/>
     )
   })
 

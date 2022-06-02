@@ -12,7 +12,6 @@ const AuthenticationCheck = ({ component: Component, inheritedSocket, ...rest })
   if (user !== null) {
     return (
       <SocketGenerator 
-        user={user} 
         inheritedSocket={inheritedSocket}
         Component={Component} 
         {...rest} 
