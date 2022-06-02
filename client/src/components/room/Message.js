@@ -1,6 +1,6 @@
 import React from "react"
 
-const Message = ({ message }) => {
+const Message = ({ message, belongsToUser }) => {
   if (!message.user) {
     return (
       <li className="flex items-baseline justify-center space-x-2 mt-1 mb-5">
@@ -11,7 +11,7 @@ const Message = ({ message }) => {
     )
   }
 
-  if (message.belongsToCurrentUser) {
+  if (belongsToUser) {
     return (
       <li className="flex items-baseline justify-end space-x-2 mt-1">
         <p className="bg-[#ff485a] text-white rounded-lg px-4 py-1 max-w-md whitespace-normal break-words">

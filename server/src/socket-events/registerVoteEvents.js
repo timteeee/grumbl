@@ -1,4 +1,6 @@
 import { Vote, Room } from "../models/index.js"
+import matchExists from "../services/matchExists.js"
+import YelpClient from "../services/YelpClient.js"
 
 export const registerVoteEvents = (io, socket) => {
   socket.on("vote:send", async ({ value, userId, roomId, restaurantId }) => {
