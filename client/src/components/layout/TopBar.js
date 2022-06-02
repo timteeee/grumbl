@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { UserContext } from "../../services/UserContext";
+import { useUser } from "../../services/UserContext";
 import SignOutButton from "../authentication/SignOutButton";
 
 const TopBar = () => {
-  const user = useContext(UserContext)
+  const user = useUser()
   const unauthenticatedButtons = [
     <li 
       key="sign-in"

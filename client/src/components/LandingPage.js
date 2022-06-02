@@ -1,10 +1,10 @@
 import React, { useContext } from "react"
 import { Link } from "react-router-dom"
-import { UserContext } from "../services/UserContext"
+import { UserContext, useUser } from "../services/UserContext"
 import GetStartedButton from "./navigation/GetStartedButton"
 
 const LandingPage = () => {
-  const user = useContext(UserContext)
+  const user = useUser()
 
   const greetingHeader = user ? `Welcome, ${user.firstName}!` : "Welcome to Grumbl!"
 
