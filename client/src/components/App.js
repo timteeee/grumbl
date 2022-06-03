@@ -7,7 +7,6 @@ import AuthenticatedRoute from "./authentication/AuthenticatedRoute"
 import RegistrationForm from "./registration/RegistrationForm";
 import SignInForm from "./authentication/SignInForm";
 import TopBar from "./layout/TopBar";
-import RoomCreator from "./room/RoomCreator";
 import RoomShowPage from "./RoomShowPage";
 import LandingPage from "./LandingPage";
 
@@ -20,7 +19,6 @@ const App = (props) => {
           <div className="">
             <Switch>
               <Route exact path="/" component={LandingPage} />
-              <AuthenticatedRoute exact path="/rooms/new" component={RoomCreator} />
               <AuthenticatedRoute 
                 exact path="/rooms/:roomId" 
                 component={RoomShowPage} 

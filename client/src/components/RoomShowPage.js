@@ -4,10 +4,11 @@ import ToggleViewButtons from "./room/ToggleViewButtons"
 import getCurrentHost from "../services/getCurrentHost"
 import DiscoveryWindow from "./room/DiscoveryWindow"
 import { useUser } from "../services/UserContext"
+import { io } from "socket.io-client"
 
-const RoomShowPage = ({ socket, ...rest }) => {
+const RoomShowPage = ({ roomId }) => {
   const user = useUser()
-  const { roomId } = rest.computedMatch.params
+  const [socket, setSocket] = useState(io(getCurrentHost()))
   const [roomInfo, setRoomInfo] = useState({})
   const [openWindow, setOpenWindow] = useState("chat")
   const [searchSent, setSearchSent] = useState(false)
@@ -65,7 +66,7 @@ const RoomShowPage = ({ socket, ...rest }) => {
       })
     })
 
-    socket.emit("room:join", { user: user.firstName, roomId: rest.computedMatch.params.roomId })
+    socket.emit("room:join", { user: user.firstName, roomId })
     
     return () => {
       socket.disconnect()
