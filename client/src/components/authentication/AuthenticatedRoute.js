@@ -1,37 +1,29 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Redirect, Route } from "react-router";
 import { useUser } from "../../services/UserContext";
-import SocketGenerator from "./SocketGenerator";
 
-const AuthenticationCheck = ({ component: Component, inheritedSocket, ...rest }) => {
+const AuthenticationCheck = ({ component: Component, ...rest }) => {
   const user = useUser()
-  const { url, params } = rest.computedMatch
+  const { location, computedMatch } = rest
+  const { url, params } = computedMatch
   if (user === undefined) {
     return <div>Loading...</div>
   }
   if (user !== null) {
     return (
-      <SocketGenerator 
-        inheritedSocket={inheritedSocket}
-        Component={Component} 
-        {...rest} 
-      />
+      <Component {...params} />
     )
   }
   return <Redirect to={{ pathname: "/user-sessions/new", state: { url, params } }} />;
 };
 
 const AuthenticatedRoute = ({ component, ...rest }) => {
-  const { location } = rest
-  const inheritedSocket = location.socket ? location.socket : null
-
   return (
     <Route
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...rest}
     >
       <AuthenticationCheck 
-        inheritedSocket={inheritedSocket} 
         component={component} 
         {...rest} 
       />

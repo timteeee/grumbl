@@ -1,9 +1,15 @@
-import React, { useContext } from "react"
-import { Link } from "react-router-dom"
-import { UserContext, useUser } from "../services/UserContext"
+import React, { useState } from "react"
+import { Link, Redirect } from "react-router-dom"
+import { useUser } from "../services/UserContext"
 import GetStartedButton from "./navigation/GetStartedButton"
 
 const LandingPage = () => {
+  const [roomId, setRoomId] = useState(null)
+
+  if (roomId) {
+    return <Redirect to={`/rooms/${roomId}`} />
+  }
+  
   const user = useUser()
 
   const greetingHeader = user ? `Welcome, ${user.firstName}!` : "Welcome to Grumbl!"
@@ -31,7 +37,7 @@ const LandingPage = () => {
       </p>
       {
         user
-          ? <GetStartedButton />
+          ? <GetStartedButton setRoomId={setRoomId} />
           : (
             <ul className="flex w-full justify-center space-x-3">
               {unauthenticatedButtons}
