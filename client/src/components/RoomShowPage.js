@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react"
+import React, { useState, useEffect } from "react"
 import ChatWindow from "./room/ChatWindow"
 import ToggleViewButtons from "./room/ToggleViewButtons"
 import getCurrentHost from "../services/getCurrentHost"
