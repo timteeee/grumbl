@@ -3,19 +3,19 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { hot } from "react-hot-loader/root";
 import "../assets/style/tailwind.css";
 import { UserProvider } from "../services/UserContext";
-import AuthenticatedRoute from "./authentication/AuthenticatedRoute"
-import RegistrationForm from "./registration/RegistrationForm";
-import SignInForm from "./authentication/SignInForm";
-import TopBar from "./layout/TopBar";
-import RoomShowPage from "./RoomShowPage";
-import LandingPage from "./LandingPage";
+import AuthenticatedRoute from "./users/AuthenticatedRoute"
+import RegistrationForm from "./users/RegistrationForm";
+import SignInForm from "./users/SignInForm";
+import NavBar from "./layout/NavBar";
+import RoomShowPage from "./pages/RoomShowPage";
+import LandingPage from "./pages/LandingPage";
 
 const App = (props) => {
   return (
     <Router>
       <div className="h-screen bg-gradient-to-tl from-[#ffddd2] to-[#F4F1BB]">
         <UserProvider>
-          <TopBar />
+          <NavBar />
           <div className="">
             <Switch>
               <Route exact path="/" component={LandingPage} />

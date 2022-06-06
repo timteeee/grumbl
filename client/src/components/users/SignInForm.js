@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import config from "../../config";
-import FormError from "../layout/FormError";
+import FormError from "../errors/FormError";
 
 const SignInForm = (props) => {
   const { state } = props.location

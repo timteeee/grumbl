@@ -1,7 +1,9 @@
 import React, { useState } from "react"
-import { Link, Redirect } from "react-router-dom"
-import { useUser } from "../services/UserContext"
-import GetStartedButton from "./navigation/GetStartedButton"
+import { Redirect } from "react-router-dom"
+import { useUser } from "../../services/UserContext"
+import SignInButton from "../navigation/SignInButton"
+import SignUpButton from "../navigation/SignUpButton"
+import GetStartedButton from "../navigation/GetStartedButton"
 
 const LandingPage = () => {
   const [roomId, setRoomId] = useState(null)
@@ -18,12 +20,12 @@ const LandingPage = () => {
     <li 
       key="sign-in"
       className="bg-[#ff485a] font-serif text-white text-2xl rounded-xl shadow-md py-1 px-3 max-w-fit">
-      <Link to="/user-sessions/new">Sign In</Link>
+      <SignInButton />
     </li>,
     <li 
       key="sign-up"
       className="bg-[#ff485a] font-serif text-white text-2xl rounded-xl shadow-md py-1 px-3 max-w-fit">
-      <Link to="/users/new">Sign Up</Link>
+      <SignUpButton />
     </li>,
   ];
 

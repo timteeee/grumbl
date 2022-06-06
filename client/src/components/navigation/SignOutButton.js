@@ -3,6 +3,10 @@ import React, { useState } from "react";
 const SignOutButton = () => {
   const [shouldRedirect, setShouldRedirect] = useState(false);
 
+  if (shouldRedirect) {
+    location.href = "/";
+  }
+
   const signOut = async (event) => {
     event.preventDefault()
     try {
@@ -25,16 +29,8 @@ const SignOutButton = () => {
     }
   }
 
-  if (shouldRedirect) {
-    location.href = "/";
-  }
-
   return (
-    <button 
-      className="text-gray-700 hover:underline hover:text-[#ff485a]"
-      type="button" 
-      role="button" 
-      onClick={signOut}>
+    <button type="button" role="button" onClick={signOut}>
       Sign Out
     </button>
   );
