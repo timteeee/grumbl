@@ -1,29 +1,31 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { useUser } from "../../services/UserContext";
-import SignOutButton from "../authentication/SignOutButton";
+import SignInButton from "../navigation/SignInButton";
+import SignOutButton from "../navigation/SignOutButton";
+import SignUpButton from "../navigation/SignUpButton";
 
-const TopBar = () => {
+const NavBar = () => {
   const user = useUser()
   const unauthenticatedButtons = [
     <li 
       key="sign-in"
-      className="text-gray-700 hover:underline hover:text-[#ff485a]"
-      role="button">
-      <Link to="/user-sessions/new">Sign In</Link>
+      className="text-gray-700 hover:text-[#ff485a]"
+      role="button" >
+      <SignInButton />
     </li>,
     <li 
       key="sign-up"
-      className="text-gray-700 hover:underline hover:text-[#ff485a]"
-      role="button">
-      <Link to="/users/new" className="">
-        Sign Up
-      </Link>
-    </li>,
+      className="text-gray-700 hover:text-[#ff485a]"
+      role="button" >
+      <SignUpButton />
+    </li>
   ];
 
   const authenticatedButtons = [
-    <li key="sign-out">
+    <li 
+      key="sign-out"
+      className="text-gray-700 hover:text-[#ff485a]">
       <SignOutButton />
     </li>
   ];
@@ -39,7 +41,7 @@ const TopBar = () => {
         <ul className="hidden lg:flex justify-end space-x-8 w-1/2 ">
           <li>
             <Link 
-              className="text-gray-700 hover:underline hover:text-[#ff485a]"
+              className="text-gray-700 hover:text-[#ff485a]"
               to="/">
               Home  
             </Link>
@@ -51,4 +53,4 @@ const TopBar = () => {
   );
 };
 
-export default TopBar;
+export default NavBar;

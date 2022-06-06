@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react"
-import ChatWindow from "./room/ChatWindow"
-import ToggleViewButtons from "./room/ToggleViewButtons"
-import getCurrentHost from "../services/getCurrentHost"
-import DiscoveryWindow from "./room/DiscoveryWindow"
-import { useUser } from "../services/UserContext"
+import ChatWindow from "../room/ChatWindow"
+import ToggleViewButtons from "../room/ToggleViewButtons"
+import getCurrentHost from "../../services/getCurrentHost"
+import DiscoveryWindow from "../room/DiscoveryWindow"
+import { useUser } from "../../services/UserContext"
 import { io } from "socket.io-client"
 
 const RoomShowPage = ({ roomId }) => {

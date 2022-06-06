@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import FormError from "../layout/FormError";
+import FormError from "../errors/FormError";
 import config from "../../config";
 
 const RegistrationForm = () => {

@@ -13,7 +13,7 @@ const DiscoveryWindow = ({ searchSent, userIsHost, restaurant, matchedRestaurant
     )
   
   return (
-    <div className="">
+    <div>
       {searchSent ? null : yelpForm}
       {
         restaurant 
