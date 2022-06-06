@@ -32,7 +32,7 @@ const RestaurantCard = ({ name, imageUrl, yelpUrl, reviewCount, rating, streetAd
             </a>
           </div>
       </div>
-      <div className="" >
+      <div>
         <div className="flex space-x-2 mt-2 mb-1" >
           <YelpRating rating={rating} />
           <p className="text-gray-400 text-xs" >

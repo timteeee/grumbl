@@ -16,7 +16,7 @@ const App = (props) => {
       <div className="h-screen bg-gradient-to-tl from-[#ffddd2] to-[#F4F1BB]">
         <UserProvider>
           <NavBar />
-          <div className="">
+          <div>
             <Switch>
               <Route exact path="/" component={LandingPage} />
               <AuthenticatedRoute 

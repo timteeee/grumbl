@@ -37,7 +37,7 @@ const ChatWindow = ({ userId, messages, sendMessage }) => {
   })
 
   return (
-    <div className="">
+    <div>
       <div className="bg-white bg-opacity-50 backdrop-blur-md rounded-lg shadow-md mx-auto mb-5 min-h-[69vh] max-h-[69vh] w-[89%] overflow-y-auto">
         <ul className="w-full p-2 flex flex-grow flex-col justify-end">
           {messagesList}
