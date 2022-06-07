@@ -32,7 +32,7 @@ const NavBar = () => {
   ];
 
   return (
-    <nav className="min-w-full bg-white bg-opacity-50 backdrop-blur-md mx-auto mb-3 p-4 shadow-xl text-xl">
+    <nav className="min-w-full bg-white bg-opacity-50 backdrop-blur-md mx-auto p-4 shadow-xl text-xl">
       <div className="flex items-center justify-around">
         <LogoHomeButton />
         <ul className="flex justify-end space-x-8 w-1/2 ">

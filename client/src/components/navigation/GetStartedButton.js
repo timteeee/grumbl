@@ -16,7 +16,7 @@ const GetStartedButton = ({ setRoomId }) => {
 
   return (
     <button 
-      className="bg-[#ff485a] font-serif text-white text-2xl rounded-xl shadow-md py-1 px-3 max-w-fit"
+      className="bg-[#ff485a] font-serif text-white text-2xl rounded-xl shadow-md py-1 px-3"
       role="button"
       onClick={getRoom}>
       Get Started

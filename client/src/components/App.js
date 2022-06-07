@@ -9,18 +9,16 @@ import SignInForm from "./users/SignInForm";
 import NavBar from "./layout/NavBar";
 import RoomShowPage from "./pages/RoomShowPage";
 import LandingPage from "./pages/LandingPage";
-import Welcome from "./pages/Welcome";
 
 const App = (props) => {
   return (
     <Router>
-      <div className="h-screen bg-gradient-to-tl from-[#ffddd2] to-[#F4F1BB]">
+      <div className="bg-gradient-to-t from-[#ffddd2] to-[#F4F1BB] text-gray-800">
         <UserProvider>
           <NavBar />
           <div>
             <Switch>
               <Route exact path="/" component={LandingPage} />
-              <Route exact path="/welcome" component={Welcome} />
               <AuthenticatedRoute 
                 exact path="/rooms/:roomId" 
                 component={RoomShowPage} 
