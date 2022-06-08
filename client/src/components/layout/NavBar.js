@@ -11,8 +11,13 @@ const NavBar = () => {
   const userButtons = user ? (
     [
       <li 
+        key="account"
+        className="hover:text-[#ff485a]">
+        <button>Account</button>
+      </li>,
+      <li 
         key="sign-out"
-        className="text-gray-700 hover:text-[#ff485a]">
+        className="hover:text-[#ff485a]">
         <SignOutButton />
       </li>
     ]
@@ -20,13 +25,13 @@ const NavBar = () => {
     [
       <li 
         key="sign-in"
-        className="text-gray-700 hover:text-[#ff485a]"
+        className="hover:text-[#ff485a]"
         role="button" >
         <SignInButton />
       </li>,
       <li 
         key="sign-up"
-        className="text-gray-700 hover:text-[#ff485a]"
+        className="hover:text-[#ff485a]"
         role="button" >
         <SignUpButton />
       </li>
@@ -34,28 +39,28 @@ const NavBar = () => {
   )
 
   const menuButtons = [
-    <li className="text-gray-700 hover:text-[#ff485a]">
+    <li className="hover:text-[#ff485a]">
       <button>Home</button>
     </li>,
-    <li className="text-gray-700 hover:text-[#ff485a]">
+    <li className="hover:text-[#ff485a]">
       <button>About</button>
     </li>,
-    <li className="text-gray-700 hover:text-[#ff485a]">
+    <li className="hover:text-[#ff485a]">
       <button>Contact</button>
     </li>,
-    <li className="text-gray-700 hover:text-[#ff485a]">
+    <li className="hover:text-[#ff485a]">
       <button>How It Works</button>
     </li>
   ]
 
   return (
-    <nav className="container mx-auto grid grid-cols-2 lg:grid-cols-[2fr_3fr_2fr] place-items-center p-6 text-xl">
+    <nav className="container mx-auto grid grid-cols-2 lg:grid-cols-[1fr_minmax(0,_3fr)_1fr] place-items-center p-6 text-xl">
       <LogoHomeButton/>      
-      <ul className="hidden lg:flex gap-8 xl:gap-10">
+      <ul className="hidden lg:flex gap-8">
         { menuButtons }
       </ul>
       <button className="justify-self-end lg:hidden">Menu</button>
-      <ul className="hidden lg:flex gap-10 justify-self-end">
+      <ul className="hidden lg:flex gap-8 justify-self-end">
         { userButtons }
       </ul>
     </nav>

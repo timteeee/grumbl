@@ -532,14 +532,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   left: 0.5rem;
 }
 
-.col-start-2{
-  grid-column-start: 2;
-}
-
-.col-start-3{
-  grid-column-start: 3;
-}
-
 .mx-auto{
   margin-left: auto;
   margin-right: auto;
@@ -553,10 +545,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .my-2{
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
-}
-
-.mb-3{
-  margin-bottom: 0.75rem;
 }
 
 .mt-48{
@@ -581,6 +569,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .mb-1{
   margin-bottom: 0.25rem;
+}
+
+.mb-3{
+  margin-bottom: 0.75rem;
 }
 
 .flex{
@@ -635,10 +627,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   min-height: 69vh;
 }
 
-.w-1\/2{
-  width: 50%;
-}
-
 .w-full{
   width: 100%;
 }
@@ -653,10 +641,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .w-\[87\%\]{
   width: 87%;
-}
-
-.min-w-full{
-  min-width: 100%;
 }
 
 .min-w-\[10px\]{
@@ -695,70 +679,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   flex-grow: 1;
 }
 
-.auto-cols-fr{
-  grid-auto-columns: minmax(0, 1fr);
-}
-
-.auto-cols-auto{
-  grid-auto-columns: auto;
-}
-
-.auto-cols-min{
-  grid-auto-columns: -webkit-min-content;
-  grid-auto-columns: min-content;
-}
-
-.auto-cols-max{
-  grid-auto-columns: -webkit-max-content;
-  grid-auto-columns: max-content;
-}
-
-.grid-cols-3{
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.grid-cols-\[autofit_minmax\(0\2c _1fr\)\]{
-  grid-template-columns: autofit minmax(0, 1fr);
-}
-
-.grid-cols-\[autofit_minmax\(\.5fr\2c _1fr\)\]{
-  grid-template-columns: autofit minmax(.5fr, 1fr);
-}
-
-.grid-cols-\[autofit_minmax\(500px\2c _1fr\)\]{
-  grid-template-columns: autofit minmax(500px, 1fr);
-}
-
-.grid-cols-\[3_minmax\(500px\2c _1fr\)\]{
-  grid-template-columns: 3 minmax(500px, 1fr);
-}
-
-.grid-cols-\[autofit_minmax\(300px\2c _2fr\)\]{
-  grid-template-columns: autofit minmax(300px, 2fr);
-}
-
-.grid-cols-\[autofit_minmax\(300px\2c _50vw\)\]{
-  grid-template-columns: autofit minmax(300px, 50vw);
-}
-
-.grid-cols-\[300px_minmax\(500px\2c _1fr\)_200px\]{
-  grid-template-columns: 300px minmax(500px, 1fr) 200px;
-}
-
-.grid-cols-\[1fr_2fr_1fr\]{
-  grid-template-columns: 1fr 2fr 1fr;
-}
-
-.grid-cols-\[2fr_3fr_2fr\]{
-  grid-template-columns: 2fr 3fr 2fr;
-}
-
 .grid-cols-2{
   grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.grid-rows-\[autofit_minmax\(300px\2c _2fr\)\]{
-  grid-template-rows: autofit minmax(300px, 2fr);
 }
 
 .flex-col{
@@ -797,38 +719,20 @@ Ensure the default browser behavior of the `hidden` attribute.
   justify-content: space-around;
 }
 
-.gap-5{
-  gap: 1.25rem;
-}
-
-.gap-10{
-  gap: 2.5rem;
-}
-
-.gap-12{
-  gap: 3rem;
-}
-
-.gap-16{
-  gap: 4rem;
-}
-
-.gap-4{
-  gap: 1rem;
-}
-
-.gap-6{
-  gap: 1.5rem;
+.justify-evenly{
+  justify-content: space-evenly;
 }
 
 .gap-8{
   gap: 2rem;
 }
 
-.space-x-8 > :not([hidden]) ~ :not([hidden]){
-  --tw-space-x-reverse: 0;
-  margin-right: calc(2rem * var(--tw-space-x-reverse));
-  margin-left: calc(2rem * calc(1 - var(--tw-space-x-reverse)));
+.gap-10{
+  gap: 2.5rem;
+}
+
+.gap-4{
+  gap: 1rem;
 }
 
 .space-y-6 > :not([hidden]) ~ :not([hidden]){
@@ -879,20 +783,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
 }
 
-.place-self-start{
-  place-self: start;
-}
-
 .justify-self-start{
   justify-self: start;
 }
 
 .justify-self-end{
   justify-self: end;
-}
-
-.justify-self-center{
-  justify-self: center;
 }
 
 .overflow-y-auto{
@@ -944,14 +840,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-color: rgb(229 231 235 / var(--tw-border-opacity));
 }
 
-.bg-white{
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
-
 .bg-\[\#ff485a\]{
   --tw-bg-opacity: 1;
   background-color: rgb(255 72 90 / var(--tw-bg-opacity));
+}
+
+.bg-white{
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
 .bg-gray-300{
@@ -1011,10 +907,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .to-white{
   --tw-gradient-to: #fff;
-}
-
-.p-4{
-  padding: 1rem;
 }
 
 .p-6{
@@ -1105,6 +997,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   line-height: 2rem;
 }
 
+.text-4xl{
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+}
+
 .text-5xl{
   font-size: 3rem;
   line-height: 1;
@@ -1118,11 +1015,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .text-sm{
   font-size: 0.875rem;
   line-height: 1.25rem;
-}
-
-.text-4xl{
-  font-size: 2.25rem;
-  line-height: 2.5rem;
 }
 
 .font-bold{
@@ -1155,12 +1047,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .opacity-70{
   opacity: 0.7;
-}
-
-.shadow-xl{
-  --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-  --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
 .shadow-md{
@@ -1238,18 +1124,7 @@ Ensure the default browser behavior of the `hidden` attribute.
   }
 }
 
-@media (min-width: 740px){
-  .md\:text-5xl{
-    font-size: 3rem;
-    line-height: 1;
-  }
-}
-
 @media (min-width: 976px){
-  .lg\:col-start-1{
-    grid-column-start: 1;
-  }
-
   .lg\:flex{
     display: flex;
   }
@@ -1270,26 +1145,25 @@ Ensure the default browser behavior of the `hidden` attribute.
     max-width: 55%;
   }
 
+  .lg\:grid-cols-\[2fr_3fr_2fr\]{
+    grid-template-columns: 2fr 3fr 2fr;
+  }
+
   .lg\:grid-cols-2{
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .lg\:grid-cols-\[2fr_3fr_2fr\]{
-    grid-template-columns: 2fr 3fr 2fr;
+  .lg\:grid-cols-\[2fr_minmax\(0\2c _3fr\)_2fr\]{
+    grid-template-columns: 2fr minmax(0, 3fr) 2fr;
+  }
+
+  .lg\:grid-cols-\[1fr_minmax\(0\2c _3fr\)_1fr\]{
+    grid-template-columns: 1fr minmax(0, 3fr) 1fr;
   }
 
   .lg\:gap-x-2{
     -moz-column-gap: 0.5rem;
          column-gap: 0.5rem;
-  }
-
-  .lg\:justify-self-start{
-    justify-self: start;
-  }
-
-  .lg\:text-5xl{
-    font-size: 3rem;
-    line-height: 1;
   }
 }
 
