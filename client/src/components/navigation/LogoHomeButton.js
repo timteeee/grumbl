@@ -4,9 +4,9 @@ import { Link } from "react-router-dom"
 const LogoHomeButton = () => {
   return (
     <Link 
-    className="mx-auto text-5xl font-Lobster text-[#ff485a]"
-    to="/">
-        Grumbl
+      className="justify-self-start text-4xl sm:text-5xl font-Lobster text-[#ff485a]"
+      to="/">
+      Grumbl
     </Link>
   )
 }
