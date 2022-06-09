@@ -8,7 +8,7 @@ const NavDropDown = ({ className, children }) => {
 
   const dropDownButtons = children.map((button, index) => {
     return (
-      <li key={ index } className="hover:text-[#ff485a]">
+      <li onClick={() => setOpen(false)} key={ index } className="hover:text-[#ff485a]">
         { button }
       </li>
     )
