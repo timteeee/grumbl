@@ -1,12 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
-const SignOutButton = () => {
-  const [shouldRedirect, setShouldRedirect] = useState(false);
-
-  if (shouldRedirect) {
-    location.href = "/";
-  }
-
+const SignOutButton = ({ setUserSignedOut }) => {
   const signOut = async (event) => {
     event.preventDefault()
     try {
@@ -21,8 +15,10 @@ const SignOutButton = () => {
         const error = new Error(errorMessage)
         throw(error)
       }
-      const respBody = await response.json()
-      setShouldRedirect(true)
+      const { message } = await response.json()
+      if (message === "User signed out") {
+        setUserSignedOut(true)
+      }
       return { status: "ok" }
     } catch(err) {
       console.error(`Error in fetch: ${err.message}`)

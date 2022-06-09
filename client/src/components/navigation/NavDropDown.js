@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { useClickOutside } from "../../services/useClickOutside"
 
 const NavDropDown = ({ className, children }) => {
@@ -36,6 +36,10 @@ const DropDownToggle =  ({ setOpen }) => {
 }
 
 const DropDownMenu = ({ children }) => {
+  useEffect(() => {
+    console.log("rendered")
+    return () => console.log("unmounted")
+  }, []) 
   return (
     <div className="absolute z-10 right-0 bg-white bg-opacity-50 rounded-lg shadow-sm w-[200px] p-6">
       <ul className="flex flex-col space-y-2 items-start">
