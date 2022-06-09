@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useUser } from "../../services/UserContext";
 import LogoHomeButton from "../navigation/LogoHomeButton";
 import { HomeButton, AboutButton, HowItWorksButton, ContactButton, AccountButton } from "../navigation/ButtonIndex";
@@ -9,6 +9,12 @@ import NavDropDown from "../navigation/NavDropDown";
 
 const NavBar = () => {
   const user = useUser()
+  
+  const [userSignedOut, setUserSignedOut] = useState(false);
+
+  if (userSignedOut) {
+    location.href = "/";
+  }
 
   const navButtons = [
     <HomeButton key="home" />,
@@ -19,7 +25,7 @@ const NavBar = () => {
 
   const userButtons = user ? [
     <AccountButton key="account" />,
-    <SignOutButton key="sign-out" />
+    <SignOutButton key="sign-out" setUserSignedOut={setUserSignedOut} />
   ] : [
     <SignInButton key="sign-in" />,
     <SignUpButton key="sign-up" />
