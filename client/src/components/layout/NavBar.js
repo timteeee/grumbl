@@ -1,69 +1,58 @@
 import React from "react";
 import { useUser } from "../../services/UserContext";
 import LogoHomeButton from "../navigation/LogoHomeButton";
+import { HomeButton, AboutButton, HowItWorksButton, ContactButton, AccountButton } from "../navigation/ButtonIndex";
 import SignInButton from "../navigation/SignInButton";
 import SignOutButton from "../navigation/SignOutButton";
 import SignUpButton from "../navigation/SignUpButton";
+import NavDropDown from "../navigation/NavDropDown";
 
 const NavBar = () => {
   const user = useUser()
 
-  const userButtons = user ? (
-    [
-      <li 
-        key="account"
-        className="hover:text-[#ff485a]">
-        <button>Account</button>
-      </li>,
-      <li 
-        key="sign-out"
-        className="hover:text-[#ff485a]">
-        <SignOutButton />
-      </li>
-    ]
-  ) : (
-    [
-      <li 
-        key="sign-in"
-        className="hover:text-[#ff485a]"
-        role="button" >
-        <SignInButton />
-      </li>,
-      <li 
-        key="sign-up"
-        className="hover:text-[#ff485a]"
-        role="button" >
-        <SignUpButton />
-      </li>
-    ]
-  )
-
-  const menuButtons = [
-    <li className="hover:text-[#ff485a]">
-      <button>Home</button>
-    </li>,
-    <li className="hover:text-[#ff485a]">
-      <button>About</button>
-    </li>,
-    <li className="hover:text-[#ff485a]">
-      <button>Contact</button>
-    </li>,
-    <li className="hover:text-[#ff485a]">
-      <button>How It Works</button>
-    </li>
+  const navButtons = [
+    <HomeButton key="home" />,
+    <AboutButton key="about" />,
+    <HowItWorksButton key="how-it-works" />,
+    <ContactButton key="contact" />
   ]
 
+  const userButtons = user ? [
+    <AccountButton key="account" />,
+    <SignOutButton key="sign-out" />
+  ] : [
+    <SignInButton key="sign-in" />,
+    <SignUpButton key="sign-up" />
+  ]
+
+
   return (
-    <nav className="container mx-auto grid grid-cols-2 lg:grid-cols-[1fr_minmax(0,_3fr)_1fr] place-items-center p-6 text-xl">
-      <LogoHomeButton/>      
-      <ul className="hidden lg:flex gap-8">
-        { menuButtons }
-      </ul>
-      <button className="justify-self-end lg:hidden">Menu</button>
-      <ul className="hidden lg:flex gap-8 justify-self-end">
-        { userButtons }
-      </ul>
-    </nav>
+    <div className="w-full bg-white bg-opacity-50 shadow-sm">
+      <nav className="w-full max-w-[1400px] mx-auto grid grid-cols-[1fr_minmax(0,_3fr)_1fr] place-items-center py-3 px-6 text-xl">
+        <LogoHomeButton/>      
+        <ul className="hidden lg:flex col-start-2 gap-8">
+          { navButtons.map((button, index) => {
+            return (
+              <li key={ index } className="hover:text-[#ff485a]">
+                { button }
+              </li>
+            )
+          }) }
+        </ul>
+        <NavDropDown className="col-start-3 justify-self-end lg:hidden">
+          { [...navButtons, ...userButtons] }
+        </NavDropDown>
+        <ul className="hidden lg:flex col-start-3 gap-6 justify-self-end">
+          { userButtons.map((button, index) => {
+            return (
+              <li key={ index } className="hover:text-[#ff485a]">
+                { button }
+              </li>
+            )
+          }) }
+        </ul>
+      </nav>
+    </div>
   );
 };
 
