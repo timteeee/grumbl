@@ -66,7 +66,7 @@ const RoomShowPage = ({ roomId }) => {
       })
     })
 
-    socket.emit("room:join", { user: user.firstName, roomId })
+    socket.emit("room:join", { user: { id: user.id, name: user.firstName }, roomId })
     
     return () => {
       socket.disconnect()

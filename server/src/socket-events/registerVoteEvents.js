@@ -10,8 +10,9 @@ export const registerVoteEvents = (io, socket) => {
         .where("roomId", "=", roomId)
         .where("restaurantId", "=", restaurantId)
         .where("value", "=", true)
-      const numActiveUsers = io.sockets.adapter.rooms.get(roomId).size
-      if (matchExists(numActiveUsers, allYesVotesForRestaurant)) {
+      const socketsInRoom = await io.in(roomId).fetchSockets()
+      const usersInRoom = socketsInRoom.map(socket => socket.data.userId)
+      if (matchExists(usersInRoom, allYesVotesForRestaurant)) {
         const restaurant = await YelpClient.getOneRestaurant(restaurantId)
         io.in(roomId).emit("vote:match", JSON.stringify({
           id: restaurant.id,
